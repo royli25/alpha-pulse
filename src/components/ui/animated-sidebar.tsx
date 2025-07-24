@@ -174,17 +174,20 @@ export const SidebarLink = ({
       {...props}
     >
       {link.icon}
-      <motion.span
-        animate={{
-          opacity: animate ? (open ? 1 : 0) : 1,
-        }}
-        style={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
-        }}
-        className="text-foreground text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
-      >
-        {link.label}
-      </motion.span>
+      <AnimatePresence mode="wait">
+        {(animate && open) || !animate ? (
+          <motion.span
+            key="label"
+            initial={animate ? { opacity: 0, x: -10 } : false}
+            animate={{ opacity: 1, x: 0 }}
+            exit={animate ? { opacity: 0, x: -10 } : false}
+            transition={{ duration: 0.2 }}
+            className="text-foreground text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre"
+          >
+            {link.label}
+          </motion.span>
+        ) : null}
+      </AnimatePresence>
     </NavLink>
   );
 };
