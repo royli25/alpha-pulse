@@ -32,7 +32,7 @@
       "id": "1",
       "asset": "AAPL",
       "type": "BUY",
-      "confidence": 92,
+      "confidence": 82,
       "timestamp": "2m ago",
       "description": "Strong momentum breakout above resistance level with increased institutional buying pressure. Reddit sentiment extremely positive with 8.2K mentions in last 24h.",
       "sources": ["news", "technical"],
