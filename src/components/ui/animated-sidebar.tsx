@@ -187,7 +187,7 @@ export const SidebarLink = ({
             transition={{ duration: 0.2 }}
             className="text-foreground text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre"
           >
-            {link.label}
+            {link.label as React.ReactNode}
           </motion.span>
         )}
       </AnimatePresence>
