@@ -142,7 +142,7 @@ export function SignalCard({ signal }: SignalCardProps) {
             )}>
               <SignalIcon className={cn("w-5 h-5", getSignalColor(signal.type))} />
             </div>
-            <span>{signal.asset} Signal Details</span>
+            <span className="text-2xl font-bold">{signal.asset}</span>
           </DialogTitle>
         </DialogHeader>
         
