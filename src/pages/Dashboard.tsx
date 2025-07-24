@@ -19,7 +19,7 @@ export default function Dashboard() {
   const { dashboardMetrics, signals, watchlist } = sampleData
 
   return (
-    <div className="space-y-8 p-6">
+    <div className="space-y-8 p-6 pr-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
