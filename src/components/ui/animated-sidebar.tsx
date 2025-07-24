@@ -145,7 +145,7 @@ export const MobileSidebar = ({
               >
                 <X />
               </div>
-              {children}
+              {children as React.ReactNode}
             </motion.div>
           )}
         </AnimatePresence>
@@ -177,20 +177,11 @@ export const SidebarLink = ({
       {...props}
     >
       {link.icon}
-      <AnimatePresence mode="wait">
-        {shouldShowLabel && (
-          <motion.div
-            key="label"
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            transition={{ duration: 0.2 }}
-            className="text-foreground text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre"
-          >
-            <span>{link.label}</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {shouldShowLabel && (
+        <span className="text-foreground text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre">
+          {link.label}
+        </span>
+      )}
     </NavLink>
   );
 };
