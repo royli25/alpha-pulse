@@ -164,6 +164,9 @@ export const SidebarLink = ({
   props?: Omit<NavLinkProps, 'to'>;
 }) => {
   const { open, animate } = useSidebar();
+  
+  const shouldShowLabel = (animate && open) || !animate;
+  
   return (
     <NavLink
       to={link.href}
@@ -175,12 +178,12 @@ export const SidebarLink = ({
     >
       {link.icon}
       <AnimatePresence mode="wait">
-        {((animate && open) || !animate) && (
+        {shouldShowLabel && (
           <motion.span
             key="label"
-            initial={animate ? { opacity: 0, x: -10 } : undefined}
+            initial={animate ? { opacity: 0, x: -10 } : false}
             animate={{ opacity: 1, x: 0 }}
-            exit={animate ? { opacity: 0, x: -10 } : undefined}
+            exit={animate ? { opacity: 0, x: -10 } : false}
             transition={{ duration: 0.2 }}
             className="text-foreground text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre"
           >
