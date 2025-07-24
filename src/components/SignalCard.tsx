@@ -1,8 +1,10 @@
 
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { TrendingUp, TrendingDown, Clock, Zap, Twitter, Newspaper } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useState } from "react"
 
 interface SignalCardProps {
   signal: {
@@ -22,6 +24,8 @@ interface SignalCardProps {
 }
 
 export function SignalCard({ signal }: SignalCardProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const getSignalColor = (type: string) => {
     switch (type) {
       case 'BUY': return 'text-green-400'
@@ -47,7 +51,11 @@ export function SignalCard({ signal }: SignalCardProps) {
   const SignalIcon = getSignalIcon(signal.type)
 
   return (
-    <Card className="hover-lift cursor-pointer group bg-card border-border rounded-2xl overflow-hidden">
+    <>
+      <Card 
+        className="hover-lift cursor-pointer group bg-card border-border rounded-2xl overflow-hidden"
+        onClick={() => setIsModalOpen(true)}
+      >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
@@ -121,5 +129,97 @@ export function SignalCard({ signal }: SignalCardProps) {
         </div>
       </CardContent>
     </Card>
+
+    <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle className="flex items-center space-x-3">
+            <div className={cn(
+              "w-10 h-10 rounded-xl flex items-center justify-center",
+              signal.type === 'BUY' && "bg-green-500/20",
+              signal.type === 'SELL' && "bg-red-500/20",
+              signal.type === 'HOLD' && "bg-yellow-500/20"
+            )}>
+              <SignalIcon className={cn("w-5 h-5", getSignalColor(signal.type))} />
+            </div>
+            <span>{signal.asset} Signal Details</span>
+          </DialogTitle>
+        </DialogHeader>
+        
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <Badge 
+              variant={signal.type === 'BUY' ? 'default' : signal.type === 'SELL' ? 'destructive' : 'secondary'}
+              className="font-medium text-lg px-4 py-2"
+            >
+              {signal.type}
+            </Badge>
+            <Badge 
+              variant="outline" 
+              className={cn("font-semibold text-lg px-4 py-2", getConfidenceColor(signal.confidence))}
+            >
+              {signal.confidence}% Confidence
+            </Badge>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <h4 className="font-semibold text-sm text-muted-foreground mb-1">Current Price</h4>
+              <p className="text-xl font-bold">{signal.price}</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-sm text-muted-foreground mb-1">Change</h4>
+              <p className={cn(
+                "text-xl font-bold",
+                signal.change > 0 ? "text-green-400" : "text-red-400"
+              )}>
+                {signal.change > 0 ? '+' : ''}{signal.change}%
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-sm text-muted-foreground mb-2">Description</h4>
+            <p className="text-sm leading-relaxed">{signal.description}</p>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-sm text-muted-foreground mb-2">Data Sources</h4>
+            <div className="flex items-center space-x-3">
+              {signal.sources.includes('news') && (
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-blue-500/20 rounded-md flex items-center justify-center">
+                    <Newspaper className="w-4 h-4 text-blue-400" />
+                  </div>
+                  <span className="text-sm">News Analysis</span>
+                </div>
+              )}
+              {signal.sources.includes('social') && (
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-secondary/20 rounded-md flex items-center justify-center">
+                    <Twitter className="w-4 h-4 text-secondary" />
+                  </div>
+                  <span className="text-sm">Social Media</span>
+                </div>
+              )}
+              {signal.sources.includes('technical') && (
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-accent/20 rounded-md flex items-center justify-center">
+                    <Zap className="w-4 h-4 text-accent" />
+                  </div>
+                  <span className="text-sm">Technical Analysis</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-1 text-xs text-muted-foreground pt-4 border-t border-border">
+            <Clock className="w-3 h-3" />
+            <span>Generated: {signal.timestamp}</span>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+    </>
   )
 }
