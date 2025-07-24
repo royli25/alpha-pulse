@@ -175,7 +175,7 @@ export const SidebarLink = ({
     >
       {link.icon}
       <AnimatePresence mode="wait">
-        {(animate && open) || !animate ? (
+        {((animate && open) || !animate) && (
           <motion.span
             key="label"
             initial={animate ? { opacity: 0, x: -10 } : undefined}
@@ -186,7 +186,7 @@ export const SidebarLink = ({
           >
             {link.label}
           </motion.span>
-        ) : null}
+        )}
       </AnimatePresence>
     </NavLink>
   );
