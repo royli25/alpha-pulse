@@ -32,7 +32,7 @@ const allSignals = [
     confidence: 92,
     timestamp: '2m ago',
     description: 'Strong momentum breakout above resistance level with increased institutional buying pressure.',
-    sources: ['news', 'technical'] as const,
+    sources: ['news', 'technical'] as ('news' | 'social' | 'technical')[],
     price: '$174.52',
     change: 2.3
   },
@@ -43,7 +43,7 @@ const allSignals = [
     confidence: 78,
     timestamp: '5m ago',
     description: 'Overbought conditions detected with negative sentiment shift in social media discussions.',
-    sources: ['social', 'technical'] as const,
+    sources: ['social', 'technical'] as ('news' | 'social' | 'technical')[],
     price: '$248.91',
     change: -1.2
   },
@@ -54,7 +54,7 @@ const allSignals = [
     confidence: 85,
     timestamp: '8m ago',
     description: 'AI sector optimism continues with strong earnings expectations and analyst upgrades.',
-    sources: ['news', 'social', 'technical'] as const,
+    sources: ['news', 'social', 'technical'] as ('news' | 'social' | 'technical')[],
     price: '$429.18',
     change: 3.7
   },
@@ -65,7 +65,7 @@ const allSignals = [
     confidence: 65,
     timestamp: '12m ago',
     description: 'Mixed signals from recent cloud earnings, awaiting clearer directional catalyst.',
-    sources: ['news'] as const,
+    sources: ['news'] as ('news' | 'social' | 'technical')[],
     price: '$378.45',
     change: 0.8
   },
@@ -76,7 +76,7 @@ const allSignals = [
     confidence: 88,
     timestamp: '15m ago',
     description: 'Search ad revenue growth momentum with positive regulatory environment signals.',
-    sources: ['news', 'technical'] as const,
+    sources: ['news', 'technical'] as ('news' | 'social' | 'technical')[],
     price: '$168.91',
     change: 1.9
   },
@@ -87,7 +87,7 @@ const allSignals = [
     confidence: 73,
     timestamp: '18m ago',
     description: 'Regulatory headwinds and user growth concerns impacting near-term outlook.',
-    sources: ['news', 'social'] as const,
+    sources: ['news', 'social'] as ('news' | 'social' | 'technical')[],
     price: '$512.78',
     change: -2.1
   }
