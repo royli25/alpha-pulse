@@ -179,7 +179,7 @@ export const SidebarLink = ({
       {link.icon}
       <AnimatePresence mode="wait">
         {shouldShowLabel && (
-          <motion.span
+          <motion.div
             key="label"
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
@@ -187,8 +187,8 @@ export const SidebarLink = ({
             transition={{ duration: 0.2 }}
             className="text-foreground text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre"
           >
-            {String(link.label)}
-          </motion.span>
+            {link.label}
+          </motion.div>
         )}
       </AnimatePresence>
     </NavLink>
