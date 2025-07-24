@@ -1,4 +1,3 @@
-
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
@@ -53,7 +52,7 @@ export function SignalCard({ signal }: SignalCardProps) {
   return (
     <>
       <Card 
-        className="hover-lift cursor-pointer group bg-card/50 border-border rounded-2xl overflow-hidden"
+        className="hover-lift cursor-pointer group bg-slate-800/80 border-none rounded-2xl overflow-hidden"
         onClick={() => setIsModalOpen(true)}
       >
       <CardHeader className="pb-3">
