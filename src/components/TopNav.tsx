@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Bell, LogOut, Settings, User } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -21,7 +20,6 @@ export function TopNav() {
     <header className="sticky top-0 z-40 w-full border-b border-sidebar-border bg-background">
       <div className="flex h-16 items-center justify-between px-4">
         <div className="flex items-center space-x-4">
-          <SidebarTrigger className="h-8 w-8" />
           <h1 className="text-xl font-semibold text-foreground">AlphaPulse</h1>
         </div>
         

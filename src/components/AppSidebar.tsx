@@ -1,5 +1,4 @@
 
-import { useState } from "react"
 import { NavLink, useLocation } from "react-router-dom"
 import { 
   BarChart3, 
@@ -17,7 +16,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar"
 
 const items = [
@@ -28,35 +26,27 @@ const items = [
 ]
 
 export function AppSidebar() {
-  const { state } = useSidebar()
   const location = useLocation()
   const currentPath = location.pathname
 
-  const collapsed = state === "collapsed"
-  const isActive = (path: string) => currentPath === path
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
     isActive 
       ? "bg-primary/10 text-primary border-r-2 border-primary font-medium" 
       : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
 
   return (
-    <Sidebar
-      className={collapsed ? "w-14" : "w-64"}
-      collapsible="icon"
-    >
+    <Sidebar className="w-64">
       <SidebarContent className="bg-background border-r border-border">
         <div className="p-6 border-b border-border">
           <div className="flex items-center">
-            {!collapsed && (
-              <div>
-                <h1 className="text-xl font-bold text-foreground">
-                  AlphaPulse
-                </h1>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Financial Intelligence
-                </p>
-              </div>
-            )}
+            <div>
+              <h1 className="text-xl font-bold text-foreground">
+                AlphaPulse
+              </h1>
+              <p className="text-sm text-muted-foreground mt-1">
+                Financial Intelligence
+              </p>
+            </div>
           </div>
         </div>
 
@@ -74,7 +64,7 @@ export function AppSidebar() {
                       }
                     >
                       <item.icon className="w-5 h-5 flex-shrink-0" />
-                      {!collapsed && <span className="text-sm">{item.title}</span>}
+                      <span className="text-sm">{item.title}</span>
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
