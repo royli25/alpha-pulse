@@ -178,9 +178,9 @@ export const SidebarLink = ({
         {(animate && open) || !animate ? (
           <motion.span
             key="label"
-            initial={animate ? { opacity: 0, x: -10 } : false}
+            initial={animate ? { opacity: 0, x: -10 } : undefined}
             animate={{ opacity: 1, x: 0 }}
-            exit={animate ? { opacity: 0, x: -10 } : false}
+            exit={animate ? { opacity: 0, x: -10 } : undefined}
             transition={{ duration: 0.2 }}
             className="text-foreground text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre"
           >
