@@ -31,7 +31,7 @@ type Signal = {
 }
 
 export default function Dashboard() {
-  const { dashboardMetrics, signals, watchlist } = sampleData
+  const { dashboardMetrics, signals, marketNews } = sampleData
   const typedSignals = signals as Signal[]
 
   return (
@@ -134,38 +134,52 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Watchlist */}
+        {/* Recent News */}
         <div className="lg:col-span-1">
           <Card className="rounded-2xl border-border bg-card">
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
-                <span>Watchlist</span>
+                <span>Recent News</span>
                 <Button variant="ghost" size="sm">
-                  <Star className="w-4 h-4" />
+                  <Eye className="w-4 h-4" />
                 </Button>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {watchlist.map((item) => (
-                <div key={item.symbol} className="flex items-center justify-between p-3 rounded-xl hover:bg-muted/50 transition-colors cursor-pointer">
-                  <div>
-                    <div className="font-medium">{item.symbol}</div>
-                    <div className="text-sm text-muted-foreground">{item.price}</div>
-                  </div>
-                  <div className={`text-sm font-medium ${
-                    item.change > 0 ? 'text-green-400' : 'text-red-400'
-                  }`}>
-                    {item.change > 0 ? '+' : ''}{item.change}%
+              {marketNews.map((news) => (
+                <div key={news.id} className="p-3 rounded-xl hover:bg-muted/50 transition-colors cursor-pointer">
+                  <div className="space-y-2">
+                    <h4 className="font-medium text-sm leading-tight">{news.title}</h4>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                      <span>{news.source}</span>
+                      <span>{news.timestamp}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge 
+                        variant="outline" 
+                        className={`text-xs ${
+                          news.sentiment === 'positive' 
+                            ? 'bg-green-500/20 text-green-400 border-green-500/30'
+                            : news.sentiment === 'negative'
+                            ? 'bg-red-500/20 text-red-400 border-red-500/30'
+                            : 'bg-gray-500/20 text-gray-400 border-gray-500/30'
+                        }`}
+                      >
+                        {news.sentiment}
+                      </Badge>
+                      {news.relevantSymbols.length > 0 && (
+                        <div className="flex gap-1">
+                          {news.relevantSymbols.slice(0, 2).map((symbol) => (
+                            <Badge key={symbol} variant="secondary" className="text-xs">
+                              {symbol}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
-              
-              <Button 
-                variant="outline" 
-                className="w-full mt-4 rounded-xl border-dashed"
-              >
-                Add Symbol
-              </Button>
             </CardContent>
           </Card>
         </div>
