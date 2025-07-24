@@ -1,0 +1,185 @@
+
+{
+  "dashboardMetrics": {
+    "activeSignals": {
+      "value": 127,
+      "change": 23,
+      "changeType": "increase",
+      "period": "From last week"
+    },
+    "avgConfidence": {
+      "value": 84.5,
+      "unit": "%",
+      "quality": "High",
+      "description": "Quality score"
+    },
+    "marketSentiment": {
+      "value": "Bullish",
+      "change": 8,
+      "changeType": "increase",
+      "source": "Social & news"
+    },
+    "portfolioImpact": {
+      "value": 12400,
+      "currency": "USD",
+      "change": 5.2,
+      "changeType": "increase",
+      "period": "This month"
+    }
+  },
+  "signals": [
+    {
+      "id": "1",
+      "asset": "AAPL",
+      "type": "BUY",
+      "confidence": 92,
+      "timestamp": "2m ago",
+      "description": "Strong momentum breakout above resistance level with increased institutional buying pressure. Reddit sentiment extremely positive with 8.2K mentions in last 24h.",
+      "sources": ["news", "technical"],
+      "price": "$174.52",
+      "change": 2.3,
+      "redditMentions": 8200,
+      "newsArticles": 45,
+      "socialSentiment": "very_positive"
+    },
+    {
+      "id": "2",
+      "asset": "TSLA",
+      "type": "SELL",
+      "confidence": 78,
+      "timestamp": "5m ago",
+      "description": "Overbought conditions detected with negative sentiment shift in social media discussions. Major bearish sentiment on r/wallstreetbets with 12K negative mentions.",
+      "sources": ["social", "technical"],
+      "price": "$248.91",
+      "change": -1.2,
+      "redditMentions": 12000,
+      "newsArticles": 23,
+      "socialSentiment": "negative"
+    },
+    {
+      "id": "3",
+      "asset": "NVDA",
+      "type": "BUY",
+      "confidence": 85,
+      "timestamp": "8m ago",
+      "description": "AI sector optimism continues with strong earnings expectations and analyst upgrades. Massive bullish sentiment across r/stocks and r/investing with 15K positive mentions.",
+      "sources": ["news", "social", "technical"],
+      "price": "$429.18",
+      "change": 3.7,
+      "redditMentions": 15000,
+      "newsArticles": 67,
+      "socialSentiment": "very_positive"
+    },
+    {
+      "id": "4",
+      "asset": "MSFT",
+      "type": "HOLD",
+      "confidence": 65,
+      "timestamp": "12m ago",
+      "description": "Mixed signals from recent cloud earnings, awaiting clearer directional catalyst. Neutral sentiment on social media with balanced discussion.",
+      "sources": ["news"],
+      "price": "$378.45",
+      "change": 0.8,
+      "redditMentions": 3400,
+      "newsArticles": 34,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "5",
+      "asset": "GOOGL",
+      "type": "BUY",
+      "confidence": 79,
+      "timestamp": "15m ago",
+      "description": "Search business showing resilience despite AI competition fears. Positive earnings surprise driving renewed interest on financial subreddits.",
+      "sources": ["news", "social"],
+      "price": "$168.91",
+      "change": 1.9,
+      "redditMentions": 5600,
+      "newsArticles": 28,
+      "socialSentiment": "positive"
+    },
+    {
+      "id": "6",
+      "asset": "AMZN",
+      "type": "SELL",
+      "confidence": 71,
+      "timestamp": "18m ago",
+      "description": "AWS growth concerns persist with increasing competition from Microsoft and Google. Bearish sentiment growing on r/SecurityAnalysis.",
+      "sources": ["news", "technical"],
+      "price": "$145.32",
+      "change": -0.9,
+      "redditMentions": 4200,
+      "newsArticles": 31,
+      "socialSentiment": "negative"
+    }
+  ],
+  "watchlist": [
+    {
+      "symbol": "SPY",
+      "name": "SPDR S&P 500 ETF",
+      "price": "$486.52",
+      "change": 1.2,
+      "volume": "89.2M",
+      "marketCap": "N/A"
+    },
+    {
+      "symbol": "QQQ",
+      "name": "Invesco QQQ ETF",
+      "price": "$403.78",
+      "change": 2.1,
+      "volume": "45.8M",
+      "marketCap": "N/A"
+    },
+    {
+      "symbol": "BTC-USD",
+      "name": "Bitcoin",
+      "price": "$67,234",
+      "change": -0.8,
+      "volume": "28.9B",
+      "marketCap": "$1.3T"
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc",
+      "price": "$168.91",
+      "change": 0.5,
+      "volume": "23.4M",
+      "marketCap": "$2.1T"
+    },
+    {
+      "symbol": "META",
+      "name": "Meta Platforms",
+      "price": "$512.73",
+      "change": 1.8,
+      "volume": "18.7M",
+      "marketCap": "$1.3T"
+    }
+  ],
+  "marketNews": [
+    {
+      "id": "1",
+      "title": "Fed Signals Potential Rate Cuts Amid Economic Uncertainty",
+      "source": "Reuters",
+      "timestamp": "1h ago",
+      "sentiment": "neutral",
+      "relevantSymbols": ["SPY", "QQQ"]
+    },
+    {
+      "id": "2",
+      "title": "Tesla Faces Production Challenges in China Amid Supply Chain Issues",
+      "source": "Bloomberg",
+      "timestamp": "2h ago",
+      "sentiment": "negative",
+      "relevantSymbols": ["TSLA"]
+    },
+    {
+      "id": "3",
+      "title": "NVIDIA Announces New AI Chip Architecture",
+      "source": "TechCrunch",
+      "timestamp": "3h ago",
+      "sentiment": "positive",
+      "relevantSymbols": ["NVDA"]
+    }
+  ],
+  "lastUpdated": "2024-01-20T15:30:00Z"
+}
