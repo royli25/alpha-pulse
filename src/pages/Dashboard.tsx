@@ -1,6 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
 import { SignalCard } from "@/components/SignalCard"
 import { Button } from "@/components/ui/button"
 import { 
@@ -50,72 +51,70 @@ export default function Dashboard() {
         </Button>
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="rounded-2xl border-border bg-card hover-lift">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Active Signals</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center space-x-2">
-              <div className="text-2xl font-bold">{dashboardMetrics.activeSignals.value}</div>
-              <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30">
-                <TrendingUp className="w-3 h-3 mr-1" />
-                +{dashboardMetrics.activeSignals.change}%
-              </Badge>
+      {/* Consolidated KPI Card */}
+      <Card className="rounded-2xl border-border bg-card hover-lift">
+        <CardContent className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Active Signals */}
+            <div className="space-y-2">
+              <div className="text-sm font-medium text-muted-foreground">Active Signals</div>
+              <div className="flex items-center space-x-2">
+                <div className="text-2xl font-bold">{dashboardMetrics.activeSignals.value}</div>
+                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30">
+                  <TrendingUp className="w-3 h-3 mr-1" />
+                  +{dashboardMetrics.activeSignals.change}%
+                </Badge>
+              </div>
+              <p className="text-xs text-muted-foreground">{dashboardMetrics.activeSignals.period}</p>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">{dashboardMetrics.activeSignals.period}</p>
-          </CardContent>
-        </Card>
 
-        <Card className="rounded-2xl border-border bg-card hover-lift">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Avg Confidence</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center space-x-2">
-              <div className="text-2xl font-bold">{dashboardMetrics.avgConfidence.value}{dashboardMetrics.avgConfidence.unit}</div>
-              <Badge variant="outline" className="bg-blue-500/20 text-blue-400 border-blue-500/30">
-                <BarChart3 className="w-3 h-3 mr-1" />
-                {dashboardMetrics.avgConfidence.quality}
-              </Badge>
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">{dashboardMetrics.avgConfidence.description}</p>
-          </CardContent>
-        </Card>
+            <Separator orientation="vertical" className="hidden lg:block" />
 
-        <Card className="rounded-2xl border-border bg-card hover-lift">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Market Sentiment</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center space-x-2">
-              <div className="text-2xl font-bold">{dashboardMetrics.marketSentiment.value}</div>
-              <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30">
-                <Users className="w-3 h-3 mr-1" />
-                +{dashboardMetrics.marketSentiment.change}%
-              </Badge>
+            {/* Avg Confidence */}
+            <div className="space-y-2">
+              <div className="text-sm font-medium text-muted-foreground">Avg Confidence</div>
+              <div className="flex items-center space-x-2">
+                <div className="text-2xl font-bold">{dashboardMetrics.avgConfidence.value}{dashboardMetrics.avgConfidence.unit}</div>
+                <Badge variant="outline" className="bg-blue-500/20 text-blue-400 border-blue-500/30">
+                  <BarChart3 className="w-3 h-3 mr-1" />
+                  {dashboardMetrics.avgConfidence.quality}
+                </Badge>
+              </div>
+              <p className="text-xs text-muted-foreground">{dashboardMetrics.avgConfidence.description}</p>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">{dashboardMetrics.marketSentiment.source}</p>
-          </CardContent>
-        </Card>
 
-        <Card className="rounded-2xl border-border bg-card hover-lift">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Portfolio Impact</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center space-x-2">
-              <div className="text-2xl font-bold">+${(dashboardMetrics.portfolioImpact.value / 1000).toFixed(1)}K</div>
-              <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30">
-                <TrendingUp className="w-3 h-3 mr-1" />
-                +{dashboardMetrics.portfolioImpact.change}%
-              </Badge>
+            <Separator orientation="vertical" className="hidden lg:block" />
+
+            {/* Market Sentiment */}
+            <div className="space-y-2">
+              <div className="text-sm font-medium text-muted-foreground">Market Sentiment</div>
+              <div className="flex items-center space-x-2">
+                <div className="text-2xl font-bold">{dashboardMetrics.marketSentiment.value}</div>
+                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30">
+                  <Users className="w-3 h-3 mr-1" />
+                  +{dashboardMetrics.marketSentiment.change}%
+                </Badge>
+              </div>
+              <p className="text-xs text-muted-foreground">{dashboardMetrics.marketSentiment.source}</p>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">{dashboardMetrics.portfolioImpact.period}</p>
-          </CardContent>
-        </Card>
-      </div>
+
+            <Separator orientation="vertical" className="hidden lg:block" />
+
+            {/* Portfolio Impact */}
+            <div className="space-y-2">
+              <div className="text-sm font-medium text-muted-foreground">Portfolio Impact</div>
+              <div className="flex items-center space-x-2">
+                <div className="text-2xl font-bold">+${(dashboardMetrics.portfolioImpact.value / 1000).toFixed(1)}K</div>
+                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30">
+                  <TrendingUp className="w-3 h-3 mr-1" />
+                  +{dashboardMetrics.portfolioImpact.change}%
+                </Badge>
+              </div>
+              <p className="text-xs text-muted-foreground">{dashboardMetrics.portfolioImpact.period}</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Signal Cards */}
@@ -134,54 +133,51 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Recent News */}
+        {/* Recent News - No Card Wrapper */}
         <div className="lg:col-span-1">
-          <Card className="rounded-2xl border-border bg-card">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                <span>Recent News</span>
-                <Button variant="ghost" size="sm">
-                  <Eye className="w-4 h-4" />
-                </Button>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {marketNews.map((news) => (
-                <div key={news.id} className="p-3 rounded-xl hover:bg-muted/50 transition-colors cursor-pointer">
-                  <div className="space-y-2">
-                    <h4 className="font-medium text-sm leading-tight">{news.title}</h4>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span>{news.source}</span>
-                      <span>{news.timestamp}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge 
-                        variant="outline" 
-                        className={`text-xs ${
-                          news.sentiment === 'positive' 
-                            ? 'bg-green-500/20 text-green-400 border-green-500/30'
-                            : news.sentiment === 'negative'
-                            ? 'bg-red-500/20 text-red-400 border-red-500/30'
-                            : 'bg-gray-500/20 text-gray-400 border-gray-500/30'
-                        }`}
-                      >
-                        {news.sentiment}
-                      </Badge>
-                      {news.relevantSymbols.length > 0 && (
-                        <div className="flex gap-1">
-                          {news.relevantSymbols.slice(0, 2).map((symbol) => (
-                            <Badge key={symbol} variant="secondary" className="text-xs">
-                              {symbol}
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold">Recent News</h2>
+            <Button variant="ghost" size="sm">
+              <Eye className="w-4 h-4" />
+            </Button>
+          </div>
+          
+          <div className="space-y-4">
+            {marketNews.map((news) => (
+              <div key={news.id} className="p-3 rounded-xl hover:bg-muted/50 transition-colors cursor-pointer">
+                <div className="space-y-2">
+                  <h4 className="font-medium text-sm leading-tight">{news.title}</h4>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <span>{news.source}</span>
+                    <span>{news.timestamp}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge 
+                      variant="outline" 
+                      className={`text-xs ${
+                        news.sentiment === 'positive' 
+                          ? 'bg-green-500/20 text-green-400 border-green-500/30'
+                          : news.sentiment === 'negative'
+                          ? 'bg-red-500/20 text-red-400 border-red-500/30'
+                          : 'bg-gray-500/20 text-gray-400 border-gray-500/30'
+                      }`}
+                    >
+                      {news.sentiment}
+                    </Badge>
+                    {news.relevantSymbols.length > 0 && (
+                      <div className="flex gap-1">
+                        {news.relevantSymbols.slice(0, 2).map((symbol) => (
+                          <Badge key={symbol} variant="secondary" className="text-xs">
+                            {symbol}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
-              ))}
-            </CardContent>
-          </Card>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

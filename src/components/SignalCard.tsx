@@ -53,7 +53,7 @@ export function SignalCard({ signal }: SignalCardProps) {
   return (
     <>
       <Card 
-        className="hover-lift cursor-pointer group bg-card border-border rounded-2xl overflow-hidden"
+        className="hover-lift cursor-pointer group bg-card/50 border-border rounded-2xl overflow-hidden"
         onClick={() => setIsModalOpen(true)}
       >
       <CardHeader className="pb-3">
