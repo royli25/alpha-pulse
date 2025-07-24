@@ -129,22 +129,32 @@ class DataCollectionScheduler {
       this.status.lastRun = new Date();
       this.status.totalRuns++;
 
-      // Collect news data
+      // Collect news data first
       const newsData = await this.newsService.collectNewsData();
 
-      // Extract symbols from news for market data
+      // Extract ONLY symbols mentioned in news articles
       const symbolsFromNews = this.alphaVantageService.extractSymbolsFromNews(newsData.articles);
       
-      // Collect market data for relevant symbols
+      console.log(`📊 Total articles processed: ${newsData.articles.length}`);
+      console.log(`📊 Symbols found in news: ${symbolsFromNews.join(', ') || 'NONE'}`);
+      
+      // Only collect market data for news-mentioned symbols
       let marketData: ProcessedMarketData[] = [];
       if (symbolsFromNews.length > 0) {
-        console.log(`📊 Collecting market data for symbols: ${symbolsFromNews.join(', ')}`);
+        console.log(`📊 Collecting market data for ${symbolsFromNews.length} symbols...`);
         marketData = await this.alphaVantageService.processMarketData(symbolsFromNews);
+      } else {
+        console.log('⚠️ No symbols found in news articles - no market data to collect');
       }
 
-      // Combine all signals
+      // Generate news-based signals (only for articles with symbols)
+      const newsSignalsWithSymbols = newsData.signals.filter(signal => 
+        symbolsFromNews.includes(signal.asset)
+      );
+
+      // Combine all signals (news + technical for same symbols)
       const allSignals = [
-        ...newsData.signals,
+        ...newsSignalsWithSymbols,
         ...marketData.flatMap(data => data.signals)
       ];
 
@@ -164,7 +174,12 @@ class DataCollectionScheduler {
       // Notify subscribers
       this.notifySubscribers(collectedData);
 
-      console.log(`✅ Data collection completed - ${newsData.articles.length} articles, ${marketData.length} quotes, ${allSignals.length} signals`);
+      console.log(`✅ Data collection completed:`);
+      console.log(`   - ${newsData.articles.length} articles processed`);
+      console.log(`   - ${symbolsFromNews.length} symbols extracted`);
+      console.log(`   - ${marketData.length} market data points`);
+      console.log(`   - ${allSignals.length} signals generated`);
+      
       return collectedData;
 
     } catch (error) {

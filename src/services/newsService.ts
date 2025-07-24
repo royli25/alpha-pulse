@@ -260,7 +260,58 @@ interface NewsArticle {
   
     private extractRelevantSymbols(article: NewsArticle): string[] {
       const text = `${article.title} ${article.description || ''}`.toUpperCase();
-      return this.TRACKED_SYMBOLS.filter(symbol => text.includes(symbol));
+      
+      // Enhanced symbol mapping - company names to tickers
+      const symbolMappings = {
+        'OPENDOOR': 'OPEN',
+        'LAMB WESTON': 'LW', 
+        'GOLDMAN SACHS': 'GS',
+        'HAMILTON': 'HMI',
+        'APPLE': 'AAPL',
+        'MICROSOFT': 'MSFT',
+        'GOOGLE': 'GOOGL',
+        'ALPHABET': 'GOOGL',
+        'TESLA': 'TSLA',
+        'META': 'META',
+        'FACEBOOK': 'META',
+        'NVIDIA': 'NVDA',
+        'UBER': 'UBER',
+        'AMAZON': 'AMZN',
+        'NETFLIX': 'NFLX',
+        'ORACLE': 'ORCL',
+        'SALESFORCE': 'CRM',
+        'ADOBE': 'ADBE',
+        'PAYPAL': 'PYPL',
+        'ZOOM': 'ZM',
+        'INTEL': 'INTC',
+        'AMD': 'AMD',
+        'ADVANCED MICRO DEVICES': 'AMD'
+      };
+      
+      const foundSymbols = new Set<string>();
+      
+      // Check direct symbol matches first
+      this.TRACKED_SYMBOLS.forEach(symbol => {
+        if (text.includes(symbol)) {
+          foundSymbols.add(symbol);
+        }
+      });
+      
+      // Check company name mappings
+      Object.entries(symbolMappings).forEach(([company, symbol]) => {
+        if (text.includes(company)) {
+          foundSymbols.add(symbol);
+        }
+      });
+      
+      const symbols = Array.from(foundSymbols);
+      
+      // Debug logging to verify extraction
+      console.log(`🔍 Article: "${article.title.substring(0, 60)}..."`);
+      console.log(`🔍 Text analyzed: "${text.substring(0, 100)}..."`);
+      console.log(`🔍 Symbols found: ${symbols.join(', ') || 'NONE'}`);
+      
+      return symbols;
     }
   
     private calculateConfidence(article: NewsArticle): number {

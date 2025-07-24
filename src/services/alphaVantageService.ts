@@ -51,7 +51,8 @@ class AlphaVantageService {
   // Major symbols to track
   private readonly TRACKED_SYMBOLS = [
     'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META', 'NVDA', 'NFLX',
-    'AMD', 'INTC', 'CRM', 'ORCL', 'ADBE', 'PYPL', 'UBER', 'ZOOM'
+    'AMD', 'INTC', 'CRM', 'ORCL', 'ADBE', 'PYPL', 'UBER', 'ZOOM',
+    'OPEN', 'LW', 'GS', 'HMI', 'ZM' // Added new symbols from company name mapping
   ];
 
   constructor(apiKey: string, baseUrl: string) {
@@ -230,21 +231,26 @@ class AlphaVantageService {
    * Process market data for multiple symbols with comprehensive fallback
    */
   async processMarketData(symbols: string[]): Promise<ProcessedMarketData[]> {
-    console.log(`🔄 Processing market data for ${symbols.length} symbols...`);
+    console.log(`🔄 Processing market data for symbols: [${symbols.join(', ')}]`);
+    
+    if (symbols.length === 0) {
+      console.log('⚠️ No symbols provided - returning empty market data');
+      return [];
+    }
     
     const results: ProcessedMarketData[] = [];
 
     for (const symbol of symbols.slice(0, 5)) { // Limit to 5 symbols to respect rate limits
       try {
-        console.log(`📊 Processing ${symbol}...`);
+        console.log(`📊 Processing market data for ${symbol}...`);
 
-        // Get quote data (now using mock data)
+        // Get quote data (using mock data)
         const quote = await this.getQuote(symbol);
 
-        // Get technical indicators (now using mock data)
+        // Get technical indicators (using mock data)  
         const technicals = await this.getTechnicalIndicators(symbol);
 
-        // Get recent intraday data (now using mock data)
+        // Get recent intraday data (using mock data)
         const recentCandles = await this.getIntradayData(symbol);
 
         // Generate technical signals
@@ -253,11 +259,13 @@ class AlphaVantageService {
         results.push({
           quote,
           technicals,
-          recentCandles: recentCandles.slice(0, 10), // Last 10 candles
+          recentCandles: recentCandles.slice(0, 10),
           signals
         });
 
-        // Small delay between symbols to respect rate limits
+        console.log(`   ✅ Generated ${signals.length} signals for ${symbol}`);
+
+        // Small delay between symbols
         await this.delay(500);
 
       } catch (error) {
@@ -266,7 +274,7 @@ class AlphaVantageService {
       }
     }
 
-    console.log(`✅ Processed market data for ${results.length} symbols`);
+    console.log(`✅ Processed market data for ${results.length} symbols with ${results.reduce((sum, r) => sum + r.signals.length, 0)} total signals`);
     return results;
   }
 
@@ -381,17 +389,29 @@ class AlphaVantageService {
   extractSymbolsFromNews(newsArticles: any[]): string[] {
     const symbols = new Set<string>();
     
-    newsArticles.forEach(article => {
-      if (article.relevantSymbols) {
+    console.log(`🔍 Extracting symbols from ${newsArticles.length} news articles...`);
+    
+    newsArticles.forEach((article, index) => {
+      console.log(`🔍 Article ${index + 1}: "${article.title?.substring(0, 50)}..."`);
+      
+      if (article.relevantSymbols && Array.isArray(article.relevantSymbols)) {
         article.relevantSymbols.forEach((symbol: string) => {
           if (this.TRACKED_SYMBOLS.includes(symbol)) {
             symbols.add(symbol);
+            console.log(`   ✅ Found symbol: ${symbol}`);
+          } else {
+            console.log(`   ⚠️ Symbol ${symbol} not in tracked list`);
           }
         });
+      } else {
+        console.log(`   ❌ No symbols found in article`);
       }
     });
 
-    return Array.from(symbols);
+    const finalSymbols = Array.from(symbols);
+    console.log(`🎯 Final extracted symbols: ${finalSymbols.join(', ') || 'NONE'}`);
+    
+    return finalSymbols;
   }
 
   // ===== PRIVATE HELPER METHODS =====

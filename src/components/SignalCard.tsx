@@ -14,11 +14,13 @@ interface SignalCardProps {
     timestamp: string
     description: string
     sources: Array<'news' | 'social' | 'technical'>
-    price: string
+    price: string | number  // Allow both string and number
     change: number
     redditMentions?: number
     newsArticles?: number
     socialSentiment?: string
+    indicator?: string      // Add this for technical indicators
+    value?: number         // Add this for indicator values
   }
 }
 
@@ -68,7 +70,9 @@ export function SignalCard({ signal }: SignalCardProps) {
             </div>
             <div>
               <h3 className="font-bold text-lg">{signal.asset}</h3>
-              <p className="text-sm text-muted-foreground">{signal.price}</p>
+              <p className="text-sm text-muted-foreground">
+                {typeof signal.price === 'number' ? `$${signal.price.toFixed(2)}` : signal.price}
+              </p>
             </div>
           </div>
           <Badge 
