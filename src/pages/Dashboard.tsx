@@ -15,8 +15,24 @@ import {
 } from "lucide-react"
 import sampleData from "@/data/sampleData.json"
 
+type Signal = {
+  id: string
+  asset: string
+  type: 'BUY' | 'SELL' | 'HOLD'
+  confidence: number
+  timestamp: string
+  description: string
+  sources: Array<'news' | 'social' | 'technical'>
+  price: string
+  change: number
+  redditMentions?: number
+  newsArticles?: number
+  socialSentiment?: string
+}
+
 export default function Dashboard() {
   const { dashboardMetrics, signals, watchlist } = sampleData
+  const typedSignals = signals as Signal[]
 
   return (
     <div className="space-y-8 p-6 pr-8">
@@ -112,7 +128,7 @@ export default function Dashboard() {
           </div>
           
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-            {signals.slice(0, 4).map((signal) => (
+            {typedSignals.slice(0, 4).map((signal) => (
               <SignalCard key={signal.id} signal={signal} />
             ))}
           </div>

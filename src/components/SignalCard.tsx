@@ -15,6 +15,9 @@ interface SignalCardProps {
     sources: Array<'news' | 'social' | 'technical'>
     price: string
     change: number
+    redditMentions?: number
+    newsArticles?: number
+    socialSentiment?: string
   }
 }
 
