@@ -3,10 +3,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getDataScheduler, type CollectedData, type SchedulerStatus } from '../services/dataScheduler';
 import { type ProcessedNewsData } from '../services/newsService';
+import { type ProcessedMarketData } from '../services/alphaVantageService';
 
 interface NewsDataState {
   articles: ProcessedNewsData[];
   signals: any[];
+  marketData: ProcessedMarketData[]; // Add this
   isLoading: boolean;
   error: string | null;
   lastUpdated: Date | null;
@@ -24,6 +26,7 @@ export const useNewsData = (): UseNewsDataReturn => {
   const [state, setState] = useState<NewsDataState>({
     articles: [],
     signals: [],
+    marketData: [], // Add this
     isLoading: false,
     error: null,
     lastUpdated: null,
@@ -54,6 +57,7 @@ export const useNewsData = (): UseNewsDataReturn => {
       ...prev,
       articles: data.articles,
       signals: data.signals,
+      marketData: data.marketData || [], // Add this
       lastUpdated: data.timestamp,
       isLoading: false,
       error: null
@@ -71,6 +75,7 @@ export const useNewsData = (): UseNewsDataReturn => {
           ...prev,
           articles: data.articles,
           signals: data.signals,
+          marketData: data.marketData || [], // Add this
           lastUpdated: data.timestamp,
           isLoading: false
         }));

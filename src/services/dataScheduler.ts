@@ -1,6 +1,7 @@
 // src/services/dataScheduler.ts
 
 import { NewsService, type ProcessedNewsData } from './newsService';
+import { AlphaVantageService, type ProcessedMarketData } from './alphaVantageService';
 import { getConfig, validateApiKeys } from '../config/environment';
 
 interface SchedulerStatus {
@@ -15,14 +16,16 @@ interface CollectedData {
   timestamp: Date;
   articles: ProcessedNewsData[];
   signals: any[];
+  marketData: ProcessedMarketData[];
   source: string;
 }
 
 class DataCollectionScheduler {
   private newsService: NewsService;
-  private intervalId: number | null = null;
+  private alphaVantageService: AlphaVantageService;
+  private intervalId: number | NodeJS.Timeout | null = null;
   private status: SchedulerStatus;
-  private subscribers: ((data: CollectedData) => void)[] = [];
+  private subscribers: Set<(data: CollectedData) => void> = new Set();
   private readonly COLLECTION_INTERVAL = 5 * 60 * 1000; // 5 minutes
 
   constructor() {
@@ -33,6 +36,7 @@ class DataCollectionScheduler {
 
     const config = getConfig();
     this.newsService = new NewsService(config.newsApiKey);
+    this.alphaVantageService = new AlphaVantageService(config.alphaVantageApiKey, config.apiEndpoints.alphaVantage);
     
     this.status = {
       isRunning: false,
@@ -101,14 +105,11 @@ class DataCollectionScheduler {
    * Subscribe to data collection events
    */
   subscribe(callback: (data: CollectedData) => void): () => void {
-    this.subscribers.push(callback);
+    this.subscribers.add(callback);
     
     // Return unsubscribe function
     return () => {
-      const index = this.subscribers.indexOf(callback);
-      if (index > -1) {
-        this.subscribers.splice(index, 1);
-      }
+      this.subscribers.delete(callback);
     };
   }
 
@@ -131,11 +132,28 @@ class DataCollectionScheduler {
       // Collect news data
       const newsData = await this.newsService.collectNewsData();
 
+      // Extract symbols from news for market data
+      const symbolsFromNews = this.alphaVantageService.extractSymbolsFromNews(newsData.articles);
+      
+      // Collect market data for relevant symbols
+      let marketData: ProcessedMarketData[] = [];
+      if (symbolsFromNews.length > 0) {
+        console.log(`📊 Collecting market data for symbols: ${symbolsFromNews.join(', ')}`);
+        marketData = await this.alphaVantageService.processMarketData(symbolsFromNews);
+      }
+
+      // Combine all signals
+      const allSignals = [
+        ...newsData.signals,
+        ...marketData.flatMap(data => data.signals)
+      ];
+
       const collectedData: CollectedData = {
         timestamp: new Date(),
         articles: newsData.articles,
-        signals: newsData.signals,
-        source: 'news'
+        signals: allSignals,
+        marketData,
+        source: 'combined'
       };
 
       // Update next run time
@@ -146,7 +164,7 @@ class DataCollectionScheduler {
       // Notify subscribers
       this.notifySubscribers(collectedData);
 
-      console.log(`✅ Data collection completed - ${newsData.articles.length} articles, ${newsData.signals.length} signals`);
+      console.log(`✅ Data collection completed - ${newsData.articles.length} articles, ${marketData.length} quotes, ${allSignals.length} signals`);
       return collectedData;
 
     } catch (error) {
@@ -180,4 +198,5 @@ export const getDataScheduler = (): DataCollectionScheduler => {
   return schedulerInstance;
 };
 
-export { DataCollectionScheduler, type SchedulerStatus, type CollectedData };
+export { DataCollectionScheduler };
+export type { SchedulerStatus, CollectedData };

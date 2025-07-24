@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
-import { LayoutDashboard, UserCog, Settings as SettingsIcon, LogOut, Search, Database } from "lucide-react";
+import { LayoutDashboard, UserCog, Settings as SettingsIcon, LogOut, Search, Database, TestTube } from "lucide-react";
 import { Link, Routes, Route } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,7 @@ import SignalExplorer from "@/pages/SignalExplorer";
 import DataSources from "@/pages/DataSources";
 import Settings from "@/pages/Settings";
 import NotFound from "@/pages/NotFound";
+import { NewsAPITest } from "@/components/NewsAPITest";
 
 export function SidebarDemo() {
   const { user, signOut } = useAuth();
@@ -42,6 +43,13 @@ export function SidebarDemo() {
       href: "/settings",
       icon: (
         <SettingsIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "NewsAPI Test",
+      href: "/news-test",
+      icon: (
+        <TestTube className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
   ];
@@ -105,6 +113,7 @@ export function SidebarDemo() {
             <Route path="/signals" element={<SignalExplorer />} />
             <Route path="/data-sources" element={<DataSources />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/news-test" element={<NewsAPITest />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
