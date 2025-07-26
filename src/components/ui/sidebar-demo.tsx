@@ -7,14 +7,15 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 import Dashboard from "@/pages/Dashboard";
-import SignalExplorer from "@/pages/SignalExplorer";
-import DataSources from "@/pages/DataSources";
+import Watchlist from "@/pages/Watchlist";
 import Settings from "@/pages/Settings";
 import NotFound from "@/pages/NotFound";
-import { NewsAPITest } from "@/components/NewsAPITest";
+import { NewsAPITest } from "@/components/newsApiTest";
+import { useNewsData } from "@/hooks/useNewsData";
 
 export function SidebarDemo() {
   const { user, signOut } = useAuth();
+  const { signals: liveSignals } = useNewsData();
   
   const links = [
     {
@@ -25,24 +26,10 @@ export function SidebarDemo() {
       ),
     },
     {
-      label: "Signal Explorer",
-      href: "/signals",
+      label: "Watchlist",
+      href: "/watchlist",
       icon: (
         <Search className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Data Sources",
-      href: "/data-sources",
-      icon: (
-        <Database className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Settings",
-      href: "/settings",
-      icon: (
-        <SettingsIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
@@ -72,7 +59,7 @@ export function SidebarDemo() {
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="justify-between gap-10">
+        <SidebarBody className="justify-between gap-10 h-full flex flex-col">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
             {open ? <Logo /> : <LogoIcon />}
             <div className="mt-8 flex flex-col gap-2">
@@ -80,7 +67,18 @@ export function SidebarDemo() {
                 <SidebarLink key={idx} link={link} />
               ))}
             </div>
+
           </div>
+          {/* Settings link right above user profile */}
+          <SidebarLink
+            link={{
+              label: "Settings",
+              href: "/settings",
+              icon: (
+                <SettingsIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+              ),
+            }}
+          />
           <div>
             <SidebarLink
               link={{
@@ -110,8 +108,8 @@ export function SidebarDemo() {
         <div className="p-2 md:p-10 bg-[#020817] flex flex-col gap-2 flex-1 w-full h-full overflow-auto">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/signals" element={<SignalExplorer />} />
-            <Route path="/data-sources" element={<DataSources />} />
+            <Route path="/watchlist" element={<Watchlist />} />
+            {/* Removed Signal Explorer route */}
             <Route path="/settings" element={<Settings />} />
             <Route path="/news-test" element={<NewsAPITest />} />
             <Route path="*" element={<NotFound />} />

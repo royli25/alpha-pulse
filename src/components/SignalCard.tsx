@@ -1,9 +1,10 @@
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { TrendingUp, TrendingDown, Clock, Zap, Twitter, Newspaper } from "lucide-react"
+import { TrendingUp, TrendingDown, Clock, Zap, Twitter, Newspaper, Bookmark } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
+import { useWatchlist } from "@/contexts/WatchlistContext"
 
 interface SignalCardProps {
   signal: {
@@ -26,6 +27,7 @@ interface SignalCardProps {
 
 export function SignalCard({ signal }: SignalCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { isBookmarked, toggleBookmark } = useWatchlist()
 
   const getSignalColor = (type: string) => {
     switch (type) {
@@ -54,171 +56,139 @@ export function SignalCard({ signal }: SignalCardProps) {
   return (
     <>
       <Card 
-        className="cursor-pointer group bg-[#121828] border-none rounded-2xl overflow-hidden transition-transform duration-150 hover:scale-[0.98]"
+        className="cursor-pointer group bg-[#1E1E2F] border-none rounded-[12px] overflow-hidden transition-transform duration-150 hover:scale-[0.98] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.15)] w-full h-full"
         onClick={() => setIsModalOpen(true)}
+        style={{ color: '#fff', fontFamily: 'Inter, sans-serif' }}
       >
-      <CardHeader className="pb-3">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center space-x-3">
-            <div className={cn(
-              "w-10 h-10 rounded-xl flex items-center justify-center",
-              signal.type === 'BUY' && "bg-green-500/20",
-              signal.type === 'SELL' && "bg-red-500/20",
-              signal.type === 'HOLD' && "bg-yellow-500/20"
-            )}>
-              <SignalIcon className={cn("w-5 h-5", getSignalColor(signal.type))} />
-            </div>
-            <div>
-              <h3 className="font-bold text-lg">{signal.asset}</h3>
-              <p className="text-sm text-muted-foreground">
-                {typeof signal.price === 'number' ? `$${signal.price.toFixed(2)}` : signal.price}
-              </p>
-            </div>
+        {/* Header Row */}
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-1">
+            <span className="font-bold text-[18px]">{signal.asset}</span>
+            <span className="inline-flex items-center gap-1 px-2 py-1 text-[12px] font-medium rounded-[8px]" style={{ backgroundColor: '#105E48', color: '#C0F8E2' }}>
+              <TrendingUp className="w-3 h-3 mr-1" /> Bullish
+            </span>
           </div>
-          <Badge 
-            variant="outline" 
-            className={cn("font-semibold", getConfidenceColor(signal.confidence))}
-          >
-            {signal.confidence}%
-          </Badge>
+          <Bookmark 
+            className={cn(
+              "w-5 h-5 cursor-pointer hover:scale-110 transition-transform",
+              isBookmarked(signal.id) && "fill-current"
+            )}
+            style={{ color: isBookmarked(signal.id) ? '#FFD700' : '#FFD700' }}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleBookmark(signal);
+            }}
+          />
         </div>
-      </CardHeader>
-      
-      <CardContent className="pt-0">
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <Badge 
-              variant={signal.type === 'BUY' ? 'default' : signal.type === 'SELL' ? 'destructive' : 'secondary'}
-              className="font-medium"
-            >
-              {signal.type}
-            </Badge>
-            <div className="flex items-center space-x-1 text-xs text-muted-foreground">
-              <Clock className="w-3 h-3" />
-              <span>{signal.timestamp}</span>
-            </div>
-          </div>
 
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {signal.description}
-          </p>
-
-          <div className="flex items-center justify-between pt-2 border-t border-border">
-            <div className="flex items-center space-x-2">
-              {signal.sources.includes('news') && (
-                <div className="w-6 h-6 bg-blue-500/20 rounded-md flex items-center justify-center">
-                  <Newspaper className="w-3 h-3 text-blue-400" />
-                </div>
-              )}
-              {signal.sources.includes('social') && (
-                <div className="w-6 h-6 bg-secondary/20 rounded-md flex items-center justify-center">
-                  <Twitter className="w-3 h-3 text-secondary" />
-                </div>
-              )}
-              {signal.sources.includes('technical') && (
-                <div className="w-6 h-6 bg-accent/20 rounded-md flex items-center justify-center">
-                  <Zap className="w-3 h-3 text-accent" />
-                </div>
-              )}
-            </div>
-            
-            <div className={cn(
-              "text-sm font-medium",
-              signal.change > 0 ? "text-green-400" : "text-red-400"
-            )}>
-              {signal.change > 0 ? '+' : ''}{signal.change}%
-            </div>
-          </div>
+        {/* Price Section */}
+        <div className="flex flex-col mt-3">
+          <span className="text-[24px] font-semibold text-white">{typeof signal.price === 'number' ? `$${signal.price.toFixed(2)}` : signal.price}</span>
         </div>
-      </CardContent>
-    </Card>
+
+        {/* Confidence Section */}
+        <div className="flex flex-col mt-4">
+          <span className="text-[14px] text-[#A1A1AA] mb-1">Confidence Score</span>
+          <div className="w-full h-2 rounded-[4px] bg-[#374151] overflow-hidden">
+            <div
+              className="h-2 rounded-[4px]"
+              style={{ width: `${signal.confidence}%`, backgroundColor: '#10B981' }}
+            />
+          </div>
+          <span className="text-[12px] text-[#D4D4D8] mt-1">{signal.confidence}%</span>
+        </div>
+
+        {/* Tags Row */}
+        <div className="flex flex-wrap gap-2 mt-3">
+          {signal.sources.includes('news') && (
+            <span className="px-2 py-1 text-[12px] rounded-[12px]" style={{ backgroundColor: '#60A5FA', color: '#fff' }}>News</span>
+          )}
+          {signal.sources.includes('technical') && (
+            <span className="px-2 py-1 text-[12px] rounded-[12px]" style={{ backgroundColor: '#A78BFA', color: '#fff' }}>Technical</span>
+          )}
+          {signal.sources.includes('social') && (
+            <span className="px-2 py-1 text-[12px] rounded-[12px]" style={{ backgroundColor: '#34D399', color: '#fff' }}>Social</span>
+          )}
+        </div>
+
+        {/* Summary */}
+        <div className="mt-4">
+          <span className="text-[13px] text-[#E5E7EB]">{signal.description}</span>
+        </div>
+
+        {/* Footer Row */}
+        <div className="flex items-center justify-between mt-3">
+          <span className="text-[12px] text-[#9CA3AF]">{signal.timestamp}</span>
+          <span className="text-[12px] text-[#9CA3AF]">Vol: {signal.redditMentions || '--'}M   Cap: ${signal.newsArticles || '--'}T</span>
+        </div>
+      </Card>
 
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl bg-[#1E1E2F] border-none" style={{ color: '#fff', fontFamily: 'Inter, sans-serif' }}>
         <DialogHeader>
-          <DialogTitle className="flex items-center space-x-3">
-            <div className={cn(
-              "w-10 h-10 rounded-xl flex items-center justify-center",
-              signal.type === 'BUY' && "bg-green-500/20",
-              signal.type === 'SELL' && "bg-red-500/20",
-              signal.type === 'HOLD' && "bg-yellow-500/20"
-            )}>
-              <SignalIcon className={cn("w-5 h-5", getSignalColor(signal.type))} />
+          <DialogTitle className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <span className="text-2xl font-bold">{signal.asset}</span>
+              <span className="inline-flex items-center gap-1 px-2 py-1 text-[12px] font-medium rounded-[8px]" style={{ backgroundColor: '#105E48', color: '#C0F8E2' }}>
+                <TrendingUp className="w-3 h-3 mr-1" /> Bullish
+              </span>
             </div>
-            <span className="text-2xl font-bold">{signal.asset}</span>
+            <div className="flex items-center space-x-3">
+              <Bookmark 
+                className={cn(
+                  "w-5 h-5 cursor-pointer hover:scale-110 transition-transform",
+                  isBookmarked(signal.id) && "fill-current"
+                )}
+                style={{ color: isBookmarked(signal.id) ? '#FFD700' : '#FFD700' }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleBookmark(signal);
+                }}
+              />
+            </div>
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <Badge 
-              variant={signal.type === 'BUY' ? 'default' : signal.type === 'SELL' ? 'destructive' : 'secondary'}
-              className="font-medium text-lg px-4 py-2"
-            >
-              {signal.type}
-            </Badge>
-            <Badge 
-              variant="outline" 
-              className={cn("font-semibold text-lg px-4 py-2", getConfidenceColor(signal.confidence))}
-            >
-              {signal.confidence}% Confidence
-            </Badge>
+          {/* Price Section */}
+          <div className="flex flex-col">
+            <span className="text-[24px] font-semibold text-white">{typeof signal.price === 'number' ? `$${signal.price.toFixed(2)}` : signal.price}</span>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <h4 className="font-semibold text-sm text-muted-foreground mb-1">Current Price</h4>
-              <p className="text-xl font-bold">{signal.price}</p>
+          {/* Confidence Section */}
+          <div className="flex flex-col">
+            <span className="text-[14px] text-[#A1A1AA] mb-1">Confidence Score</span>
+            <div className="w-full h-2 rounded-[4px] bg-[#374151] overflow-hidden">
+              <div
+                className="h-2 rounded-[4px]"
+                style={{ width: `${signal.confidence}%`, backgroundColor: '#10B981' }}
+              />
             </div>
-            <div>
-              <h4 className="font-semibold text-sm text-muted-foreground mb-1">Change</h4>
-              <p className={cn(
-                "text-xl font-bold",
-                signal.change > 0 ? "text-green-400" : "text-red-400"
-              )}>
-                {signal.change > 0 ? '+' : ''}{signal.change}%
-              </p>
-            </div>
+            <span className="text-[12px] text-[#D4D4D8] mt-1">{signal.confidence}%</span>
           </div>
 
+          {/* Tags Row */}
+          <div className="flex flex-wrap gap-2">
+            {signal.sources.includes('news') && (
+              <span className="px-2 py-1 text-[12px] rounded-[12px]" style={{ backgroundColor: '#60A5FA', color: '#fff' }}>News</span>
+            )}
+            {signal.sources.includes('technical') && (
+              <span className="px-2 py-1 text-[12px] rounded-[12px]" style={{ backgroundColor: '#A78BFA', color: '#fff' }}>Technical</span>
+            )}
+            {signal.sources.includes('social') && (
+              <span className="px-2 py-1 text-[12px] rounded-[12px]" style={{ backgroundColor: '#34D399', color: '#fff' }}>Social</span>
+            )}
+          </div>
+
+          {/* Summary */}
           <div>
-            <h4 className="font-semibold text-sm text-muted-foreground mb-2">Description</h4>
-            <p className="text-sm leading-relaxed">{signal.description}</p>
+            <span className="text-[13px] text-[#E5E7EB]">{signal.description}</span>
           </div>
 
-          <div>
-            <h4 className="font-semibold text-sm text-muted-foreground mb-2">Data Sources</h4>
-            <div className="flex items-center space-x-3">
-              {signal.sources.includes('news') && (
-                <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-blue-500/20 rounded-md flex items-center justify-center">
-                    <Newspaper className="w-4 h-4 text-blue-400" />
-                  </div>
-                  <span className="text-sm">News Analysis</span>
-                </div>
-              )}
-              {signal.sources.includes('social') && (
-                <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-secondary/20 rounded-md flex items-center justify-center">
-                    <Twitter className="w-4 h-4 text-secondary" />
-                  </div>
-                  <span className="text-sm">Social Media</span>
-                </div>
-              )}
-              {signal.sources.includes('technical') && (
-                <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-accent/20 rounded-md flex items-center justify-center">
-                    <Zap className="w-4 h-4 text-accent" />
-                  </div>
-                  <span className="text-sm">Technical Analysis</span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-1 text-xs text-muted-foreground pt-4 border-t border-border">
-            <Clock className="w-3 h-3" />
-            <span>Generated: {signal.timestamp}</span>
+          {/* Footer Row */}
+          <div className="flex items-center justify-between pt-4 border-t border-[#374151]">
+            <span className="text-[12px] text-[#9CA3AF]">{signal.timestamp}</span>
+            <span className="text-[12px] text-[#9CA3AF]">Vol: {signal.redditMentions || '--'}M   Cap: ${signal.newsArticles || '--'}T</span>
           </div>
         </div>
       </DialogContent>

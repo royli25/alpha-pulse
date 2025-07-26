@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -14,10 +13,11 @@ import {
   ArrowRight,
   Star,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Shuffle
 } from "lucide-react"
 import sampleData from "@/data/sampleData.json"
-import React from "react"
+import React, { useState } from "react"
 // Add live data import
 import { useNewsData } from "@/hooks/useNewsData"
 
@@ -39,6 +39,10 @@ type Signal = {
 }
 
 export default function Dashboard() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterType, setFilterType] = useState('all');
+  const [refreshKey, setRefreshKey] = useState(0);
+
   // Get live data
   const { 
     articles, 
@@ -67,6 +71,47 @@ export default function Dashboard() {
     newsArticles: signal.newsArticles || 0,
     socialSentiment: signal.socialSentiment || 'neutral'
   })) as Signal[];
+
+  // Filter signals based on search term and filter type
+  const filteredSignals = typedSignals.filter(signal => {
+    const matchesSearch = signal.asset.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         signal.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = filterType === 'all' || signal.type.toLowerCase() === filterType.toLowerCase();
+    return matchesSearch && matchesFilter;
+  });
+
+  // Shuffle utility
+  function shuffleArray(array: any[]) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Always show exactly 6 signals - pad with sample data if needed
+  let displaySignalsToShow = filteredSignals;
+  if (filteredSignals.length > 6) {
+    displaySignalsToShow = shuffleArray(filteredSignals).slice(0, 6 + refreshKey * 0); // shuffle on refreshKey change
+  } else if (filteredSignals.length < 6) {
+    const sampleSignalsConverted = sampleSignals.map(signal => ({
+      ...signal,
+      price: signal.price || '$0.00',
+      change: signal.change || 0,
+      redditMentions: signal.redditMentions || 0,
+      newsArticles: signal.newsArticles || 0,
+      socialSentiment: signal.socialSentiment || 'neutral'
+    })) as Signal[];
+    const additionalSignals = sampleSignalsConverted.filter(signal =>
+      !displaySignalsToShow.some(existing => existing.id === signal.id)
+    );
+    displaySignalsToShow = [
+      ...displaySignalsToShow,
+      ...additionalSignals.slice(0, 6 - displaySignalsToShow.length)
+    ];
+  }
+  displaySignalsToShow = displaySignalsToShow.slice(0, 6);
 
   // Calculate live metrics (keeping your existing structure)
   const liveMetrics = {
@@ -104,7 +149,7 @@ export default function Dashboard() {
   const [newsCollapsed, setNewsCollapsed] = React.useState(false)
 
   return (
-    <div className="space-y-8 p-6 pr-8">
+    <div className="space-y-8 p-6 pr-8 relative min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -113,40 +158,7 @@ export default function Dashboard() {
             Welcome back, Alex. Here's your market intelligence overview.
           </p>
         </div>
-        <Button className="bg-primary hover:bg-primary/90 text-white rounded-xl px-6">
-          <Zap className="w-4 h-4 mr-2" />
-          Generate Signal
-        </Button>
       </div>
-
-      {/* Live Status Indicator - Add this NEW section */}
-      {(liveSignals.length > 0 || articles.length > 0) && (
-        <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg border-dashed border-2 border-green-500/30">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <div className={`w-3 h-3 rounded-full ${
-                schedulerStatus.isRunning 
-                  ? 'bg-green-400 animate-pulse' 
-                  : 'bg-gray-400'
-              }`} />
-              <span className="font-medium text-green-400">
-                Live Market Intelligence Active
-              </span>
-            </div>
-            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-              <span>{articles.length} articles</span>
-              <span>{liveSignals.length} live signals</span>
-              <span>{marketData.length} market quotes</span>
-              {lastUpdated && <span>Updated: {lastUpdated.toLocaleTimeString()}</span>}
-            </div>
-          </div>
-          {error && (
-            <Badge variant="outline" className="bg-red-500/20 text-red-400 border-red-500/30">
-              {error.substring(0, 30)}...
-            </Badge>
-          )}
-        </div>
-      )}
 
       {/* KPI Row - Use live metrics but keep exact styling */}
       <div className="flex flex-row justify-between w-full gap-4 py-3 px-2 bg-transparent" style={{ fontSize: '0.5em' }}>
@@ -204,136 +216,115 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Signal Cards - Keep exact styling, use live data */}
-        <div className="lg:col-span-3">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold">Latest Signals</h2>
-            <div className="flex items-center space-x-2">
-              {liveSignals.length > 0 && (
-                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30">
-                  LIVE
-                </Badge>
-              )}
-              <Button variant="ghost" className="bg-[rgba(120,120,128,0.1)] text-primary hover:bg-[rgba(120,120,128,0.15)] border-none shadow-none">
-                View All <ArrowRight className="w-4 h-4 ml-2" />
+        {/* Signal Cards - 2 rows of 3, with controls above */}
+        <div className="lg:col-span-3 overflow-hidden">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold">Recent Signals</h2>
+            <div className="flex items-center gap-4">
+              <input
+                type="text"
+                placeholder="Search signals..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="px-3 py-2 rounded-lg bg-muted/30 text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary/30"
+              />
+              <Button 
+                variant={filterType === 'all' ? 'default' : 'outline'} 
+                className="px-4 py-2"
+                onClick={() => setFilterType('all')}
+              >
+                All
+              </Button>
+              <Button 
+                variant={filterType === 'buy' ? 'default' : 'outline'} 
+                className="px-4 py-2"
+                onClick={() => setFilterType('buy')}
+              >
+                Buy
+              </Button>
+              <Button 
+                variant={filterType === 'sell' ? 'default' : 'outline'} 
+                className="px-4 py-2"
+                onClick={() => setFilterType('sell')}
+              >
+                Sell
+              </Button>
+              <Button 
+                variant={filterType === 'hold' ? 'default' : 'outline'} 
+                className="px-4 py-2"
+                onClick={() => setFilterType('hold')}
+              >
+                Hold
+              </Button>
+              <Button
+                variant="outline"
+                className="px-4 py-2 flex items-center gap-2"
+                onClick={() => setRefreshKey(k => k + 1)}
+                title="Refresh selection"
+              >
+                <Shuffle className="w-4 h-4" /> Refresh
               </Button>
             </div>
           </div>
-          
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-            {typedSignals.slice(0, 4).map((signal) => (
-              <SignalCard key={signal.id} signal={signal} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+            {displaySignalsToShow.map((signal) => (
+              <div key={signal.id} className="w-full h-full min-h-[280px]">
+                <SignalCard signal={signal} />
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Recent News - Enhanced with live data */}
+        {/* Recent News - Not collapsible, top 4 only */}
         <div className="lg:col-span-1">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold">Recent News</h2>
-            <div className="flex items-center space-x-2">
-              {articles.length > 0 && (
-                <Badge variant="outline" className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs">
-                  {articles.length} LIVE
-                </Badge>
-              )}
-              <Button variant="ghost" size="sm" onClick={() => setNewsCollapsed(v => !v)}>
-                {newsCollapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
-              </Button>
-            </div>
           </div>
-          {!newsCollapsed && (
-            <div className="space-y-4">
-              {displayNews.map((news) => (
-                <div key={news.id} className="p-3 rounded-xl hover:bg-muted/50 transition-colors cursor-pointer">
-                  <div className="space-y-2">
-                    <h4 className="font-medium text-sm leading-tight">{news.title}</h4>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span>{news.source}</span>
-                      <span>
-                        {/* Handle both live and sample data timestamp formats */}
-                        {news.publishedAt ? new Date(news.publishedAt).toLocaleTimeString() : news.timestamp}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge 
-                        variant="outline" 
-                        className={`text-xs ${
-                          news.sentiment === 'positive' 
-                            ? 'bg-green-500/20 text-green-400 border-green-500/30'
-                            : news.sentiment === 'negative'
-                            ? 'bg-red-500/20 text-red-400 border-red-500/30'
-                            : 'bg-gray-500/20 text-gray-400 border-gray-500/30'
-                        }`}
-                      >
-                        {news.sentiment}
+          <div className="space-y-4">
+            {displayNews.slice(0, 4).map((news) => (
+              <div key={news.id} className="p-3 rounded-xl hover:bg-muted/50 transition-colors cursor-pointer">
+                <div className="space-y-2">
+                  <h4 className="font-medium text-sm leading-tight">{news.title}</h4>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <span>{news.source}</span>
+                    <span>
+                      {news.publishedAt ? new Date(news.publishedAt).toLocaleTimeString() : news.timestamp}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge 
+                      variant="outline" 
+                      className={`text-xs ${
+                        news.sentiment === 'positive' 
+                          ? 'bg-green-500/20 text-green-400 border-green-500/30'
+                          : news.sentiment === 'negative'
+                          ? 'bg-red-500/20 text-red-400 border-red-500/30'
+                          : 'bg-gray-500/20 text-gray-400 border-gray-500/30'
+                      }`}
+                    >
+                      {news.sentiment}
+                    </Badge>
+                    {news.confidence && (
+                      <Badge variant="secondary" className="text-xs">
+                        {news.confidence}%
                       </Badge>
-                      
-                      {/* Live data confidence score */}
-                      {news.confidence && (
-                        <Badge variant="secondary" className="text-xs">
-                          {news.confidence}%
-                        </Badge>
-                      )}
-                      
-                      {/* Show relevant symbols for live data or sample data */}
-                      {(news.relevantSymbols || news.relevantSymbols)?.length > 0 && (
-                        <div className="flex gap-1">
-                          {(news.relevantSymbols || news.relevantSymbols).slice(0, 2).map((symbol) => (
-                            <Badge key={symbol} variant="secondary" className="text-xs">
-                              {symbol}
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                    )}
+                    {(news.relevantSymbols || news.relevantSymbols)?.length > 0 && (
+                      <div className="flex gap-1">
+                        {(news.relevantSymbols || news.relevantSymbols).slice(0, 2).map((symbol) => (
+                          <Badge key={symbol} variant="secondary" className="text-xs">
+                            {symbol}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Live Market Data - NEW SECTION */}
-      {marketData.length > 0 && (
-        <div className="mt-6">
-          <h2 className="text-xl font-bold mb-4">Live Market Data</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {marketData.slice(0, 3).map((data) => (
-              <div key={data.quote.symbol} className="p-4 bg-muted/30 rounded-lg border border-border">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-medium text-lg">{data.quote.symbol}</span>
-                  <Badge variant={data.quote.changePercent > 0 ? 'default' : 'destructive'}>
-                    {data.quote.changePercent > 0 ? '+' : ''}{data.quote.changePercent.toFixed(1)}%
-                  </Badge>
-                </div>
-                <div className="space-y-1 text-sm text-muted-foreground">
-                  <div className="flex justify-between">
-                    <span>Price:</span>
-                    <span className="font-medium text-foreground">${data.quote.price.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Volume:</span>
-                    <span>{(data.quote.volume / 1000000).toFixed(1)}M</span>
-                  </div>
-                  {data.technicals.length > 0 && (
-                    <div className="flex justify-between">
-                      <span>RSI:</span>
-                      <span className={
-                        data.technicals.find(t => t.indicator === 'RSI')?.value < 30 ? 'text-green-400' :
-                        data.technicals.find(t => t.indicator === 'RSI')?.value > 70 ? 'text-red-400' : 'text-yellow-400'
-                      }>
-                        {data.technicals.find(t => t.indicator === 'RSI')?.value.toFixed(1) || 'N/A'}
-                      </span>
-                    </div>
-                  )}
                 </div>
               </div>
             ))}
           </div>
         </div>
-      )}
+      </div>
     </div>
   )
 }
