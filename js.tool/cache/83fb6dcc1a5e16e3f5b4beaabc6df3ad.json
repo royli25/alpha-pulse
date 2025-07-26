@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "prompt": "Jpm stock",
   "template": null,
@@ -21,4 +22,29 @@
   "created_at": "2025-07-26T23:47:39.664864",
   "expires": "2025-07-27T00:47:39.664864",
   "ttl": 3600
+=======
+{
+  "prompt": "Jpm stock",
+  "template": null,
+  "response": {
+    "id": "jpm_20250726_001",
+    "asset": "JPM",
+    "type": "BUY",
+    "confidence": 82,
+    "signal": "bullish",
+    "timestamp": "2h ago",
+    "description": "JPM closed at $298.62, up 0.7% on the day and 5.8% this month. A $40 B capital-return plan announced after hours lifted shares another 3.2%. Technicals show price well above 50- and 200-day MAs, RSI at 63, and MACD bullish. Q2 EPS beat by 10.7% and revenue topped estimates, reinforcing momentum.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$298.62",
+    "change": 0.7,
+    "newsArticles": 7,
+    "socialSentiment": "positive"
+  },
+  "created_at": "2025-07-26T23:47:39.664864",
+  "expires": "2025-07-27T00:47:39.664864",
+  "ttl": 3600
+>>>>>>> 00da180a62cd73f62e5aa760a2cbb98ee360ac3e
 }
