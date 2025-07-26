@@ -1,6 +1,6 @@
-  # 🦁 FinSafari | 金融探险家
+ <div align="center"> # 🦁 FinSafari | 金融探险家
 
-<div align="center">
+
   
 # 🎯 智能股票信号追踪系统 | AI-Powered Stock Signal Tracker
 
