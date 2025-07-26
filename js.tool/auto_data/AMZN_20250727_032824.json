@@ -1,0 +1,28 @@
+{
+  "symbol": "AMZN",
+  "timestamp": "2025-07-27T03:28:24.635280",
+  "data": {
+    "id": "AMZN_20250727_001",
+    "asset": "AMZN",
+    "type": "HOLD",
+    "confidence": 68,
+    "signal": "neutral",
+    "timestamp": "2d ago",
+    "description": "AMZN closed Friday at $231.44 (-0.34% on the day, +23.3% over 3 months). Volume cooled to 28.7 M vs 42.9 M Thursday. Mixed signals: technical score downgraded from Strong Buy to Buy, Jeff Bezos filed large insider sells (≈$3.5 B this week), and Canada’s Competition Bureau opened a pricing-policy probe. Earnings due 31 Jul (consensus EPS $1.33 vs $1.23 YoY). RSI ~41 suggests neither oversold nor overbought; price sits just above 50-day SMA ($214.95). Wait for post-earnings guidance before adding.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$231.44",
+    "change": -0.34,
+    "newsArticles": 4,
+    "socialSentiment": "neutral",
+    "fetch_timestamp": "2025-07-27T03:28:24.633280",
+    "fetch_success": true,
+    "symbol": "AMZN"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:28:24.635280"
+  }
+}

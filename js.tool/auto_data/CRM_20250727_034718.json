@@ -1,0 +1,28 @@
+{
+  "symbol": "CRM",
+  "timestamp": "2025-07-27T03:47:18.993770",
+  "data": {
+    "id": "crm-20250727-001",
+    "asset": "CRM",
+    "type": "HOLD",
+    "confidence": 62,
+    "signal": "neutral",
+    "timestamp": "1h ago",
+    "description": "CRM closed at $267.70, down just ‑0.04% intraday but off 23.7% YTD. Mixed signals: strong Q1 earnings beat, 96% upside in analyst PT ($440 max), yet technicals remain neutral-to-sell and social chatter is cautious ahead of the Aug-20 earnings call. Volume at 5.9 M is above the 30-day average, suggesting active repositioning.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$267.70",
+    "change": -0.04,
+    "newsArticles": 5,
+    "socialSentiment": "neutral",
+    "fetch_timestamp": "2025-07-27T03:47:18.991772",
+    "fetch_success": true,
+    "symbol": "CRM"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:47:18.993770"
+  }
+}

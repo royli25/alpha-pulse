@@ -1,0 +1,28 @@
+{
+  "symbol": "UBER",
+  "timestamp": "2025-07-27T03:58:49.778003",
+  "data": {
+    "id": "UBER-20250727-001",
+    "asset": "UBER",
+    "type": "HOLD",
+    "confidence": 62,
+    "signal": "neutral",
+    "timestamp": "the time the news is from 30m ago",
+    "description": "UBER closed at $90.59, down 0.6 % intraday amid mixed sentiment. 9.1 M shares traded—well below the 21.3 M average—while technicals sit neutral (RSI 38.4). Headlines focus on upcoming Aug-6 earnings and cautious analyst PT trims. Social chatter is mildly negative on regulatory risk in Europe.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$90.59",
+    "change": -0.6,
+    "newsArticles": 4,
+    "socialSentiment": "negative",
+    "fetch_timestamp": "2025-07-27T03:58:30.439597",
+    "fetch_success": true,
+    "symbol": "UBER"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:58:49.778003"
+  }
+}

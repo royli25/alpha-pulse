@@ -1,0 +1,28 @@
+{
+  "symbol": "AAPL",
+  "timestamp": "2025-07-27T03:20:39.449051",
+  "data": {
+    "id": "aapl_20250727_001",
+    "asset": "AAPL",
+    "type": "HOLD",
+    "confidence": 62,
+    "signal": "neutral",
+    "timestamp": "5m ago",
+    "description": "AAPL closed at $213.88, up 0.06% on the day. Price is wedged between narrow resistance at $216.5 and support at $202.94; mixed technical signals (RSI 57, MACD bullish crossover but still below 200-day SMA). Earnings due 31 Jul (consensus EPS $1.42) is the next catalyst. Legal overhang from multiple securities-fraud suits and AI-strategy pressure are capping upside, while $500 M rare-earth investment offers a modest tail-wind. Volume at 40.3 M is slightly below 3-month average, indicating wait-and-see sentiment.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$213.88",
+    "change": 0.06,
+    "newsArticles": 7,
+    "socialSentiment": "neutral",
+    "fetch_timestamp": "2025-07-27T03:20:20.359304",
+    "fetch_success": true,
+    "symbol": "AAPL"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:20:39.449051"
+  }
+}
