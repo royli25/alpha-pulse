@@ -1,14 +1,13 @@
-
 {
   "dashboardMetrics": {
     "activeSignals": {
-      "value": 127,
+      "value": 27,
       "change": 23,
       "changeType": "increase",
       "period": "From last week"
     },
     "avgConfidence": {
-      "value": 84.5,
+      "value": 65.8,
       "unit": "%",
       "quality": "High",
       "description": "Quality score"
@@ -28,36 +27,465 @@
     }
   },
   "signals": [
-    { "id": "1", "asset": "AAPL", "type": "BUY", "confidence": 82, "timestamp": "2m ago", "description": "Strong momentum breakout above resistance level with increased institutional buying pressure. Reddit sentiment extremely positive with 8.2K mentions in last 24h.", "sources": ["news", "technical"], "price": "$174.52", "change": 2.3, "redditMentions": 8200, "newsArticles": 45, "socialSentiment": "very_positive" },
-    { "id": "2", "asset": "TSLA", "type": "SELL", "confidence": 78, "timestamp": "5m ago", "description": "Overbought conditions detected with negative sentiment shift in social media discussions. Major bearish sentiment on r/wallstreetbets with 12K negative mentions.", "sources": ["social", "technical"], "price": "$248.91", "change": -1.2, "redditMentions": 12000, "newsArticles": 23, "socialSentiment": "negative" },
-    { "id": "3", "asset": "NVDA", "type": "BUY", "confidence": 85, "timestamp": "8m ago", "description": "AI sector optimism continues with strong earnings expectations and analyst upgrades. Massive bullish sentiment across r/stocks and r/investing with 15K positive mentions.", "sources": ["news", "social", "technical"], "price": "$429.18", "change": 3.7, "redditMentions": 15000, "newsArticles": 67, "socialSentiment": "very_positive" },
-    { "id": "4", "asset": "MSFT", "type": "HOLD", "confidence": 65, "timestamp": "12m ago", "description": "Mixed signals from recent cloud earnings, awaiting clearer directional catalyst. Neutral sentiment on social media with balanced discussion.", "sources": ["news"], "price": "$378.45", "change": 0.8, "redditMentions": 3400, "newsArticles": 34, "socialSentiment": "neutral" },
-    { "id": "5", "asset": "GOOGL", "type": "BUY", "confidence": 79, "timestamp": "15m ago", "description": "Search business showing resilience despite AI competition fears. Positive earnings surprise driving renewed interest on financial subreddits.", "sources": ["news", "social"], "price": "$168.91", "change": 1.9, "redditMentions": 5600, "newsArticles": 28, "socialSentiment": "positive" },
-    { "id": "6", "asset": "AMZN", "type": "SELL", "confidence": 71, "timestamp": "18m ago", "description": "AWS growth concerns persist with increasing competition from Microsoft and Google. Bearish sentiment growing on r/SecurityAnalysis.", "sources": ["news", "technical"], "price": "$145.32", "change": -0.9, "redditMentions": 4200, "newsArticles": 31, "socialSentiment": "negative" },
-    { "id": "7", "asset": "META", "type": "BUY", "confidence": 88, "timestamp": "20m ago", "description": "Meta's new AI features drive user engagement. Social sentiment at all-time high.", "sources": ["news", "social"], "price": "$312.45", "change": 4.2, "redditMentions": 9000, "newsArticles": 40, "socialSentiment": "very_positive" },
-    { "id": "8", "asset": "NFLX", "type": "SELL", "confidence": 60, "timestamp": "25m ago", "description": "Subscriber growth slows, competition heats up. Bearish outlook from analysts.", "sources": ["news", "technical"], "price": "$495.12", "change": -2.1, "redditMentions": 2100, "newsArticles": 18, "socialSentiment": "negative" },
-    { "id": "9", "asset": "BABA", "type": "BUY", "confidence": 74, "timestamp": "30m ago", "description": "Alibaba rebounds on strong Singles' Day sales. Positive news coverage in Asia.", "sources": ["news"], "price": "$88.23", "change": 3.5, "redditMentions": 3200, "newsArticles": 22, "socialSentiment": "positive" },
-    { "id": "10", "asset": "JPM", "type": "HOLD", "confidence": 68, "timestamp": "35m ago", "description": "Banking sector stable, but interest margin pressure remains. Mixed analyst reviews.", "sources": ["news", "technical"], "price": "$141.67", "change": 0.2, "redditMentions": 1100, "newsArticles": 15, "socialSentiment": "neutral" },
-    { "id": "11", "asset": "V", "type": "BUY", "confidence": 80, "timestamp": "40m ago", "description": "Visa sees record payment volume. Bullish technicals and positive news.", "sources": ["news", "technical"], "price": "$234.56", "change": 2.8, "redditMentions": 2500, "newsArticles": 19, "socialSentiment": "positive" },
-    { "id": "12", "asset": "MA", "type": "SELL", "confidence": 62, "timestamp": "45m ago", "description": "Mastercard faces regulatory headwinds in Europe. Social sentiment turns negative.", "sources": ["news", "social"], "price": "$367.89", "change": -1.5, "redditMentions": 1800, "newsArticles": 14, "socialSentiment": "negative" },
-    { "id": "13", "asset": "DIS", "type": "HOLD", "confidence": 66, "timestamp": "50m ago", "description": "Disney+ growth slows, but parks revenue strong. Mixed signals from analysts.", "sources": ["news", "technical"], "price": "$98.76", "change": 0.4, "redditMentions": 1300, "newsArticles": 12, "socialSentiment": "neutral" },
-    { "id": "14", "asset": "PYPL", "type": "BUY", "confidence": 77, "timestamp": "55m ago", "description": "PayPal launches new crypto features. Bullish sentiment on r/cryptocurrency.", "sources": ["news", "social"], "price": "$72.34", "change": 3.1, "redditMentions": 4100, "newsArticles": 17, "socialSentiment": "positive" },
-    { "id": "15", "asset": "ADBE", "type": "SELL", "confidence": 59, "timestamp": "1h ago", "description": "Adobe's earnings miss expectations. Technicals show downward trend.", "sources": ["news", "technical"], "price": "$512.34", "change": -2.7, "redditMentions": 900, "newsArticles": 10, "socialSentiment": "negative" },
-    { "id": "16", "asset": "CRM", "type": "BUY", "confidence": 83, "timestamp": "1h 5m ago", "description": "Salesforce beats on revenue, raises guidance. Social buzz increasing.", "sources": ["news", "social"], "price": "$221.45", "change": 2.9, "redditMentions": 3500, "newsArticles": 21, "socialSentiment": "positive" },
-    { "id": "17", "asset": "ORCL", "type": "HOLD", "confidence": 67, "timestamp": "1h 10m ago", "description": "Oracle's cloud business steady, but growth lags peers. Neutral outlook.", "sources": ["news", "technical"], "price": "$98.12", "change": 0.6, "redditMentions": 1200, "newsArticles": 13, "socialSentiment": "neutral" },
-    { "id": "18", "asset": "INTC", "type": "SELL", "confidence": 61, "timestamp": "1h 15m ago", "description": "Intel faces chip delays, negative press coverage. Bearish technicals.", "sources": ["news", "technical"], "price": "$34.56", "change": -1.8, "redditMentions": 800, "newsArticles": 11, "socialSentiment": "negative" },
-    { "id": "19", "asset": "AMD", "type": "BUY", "confidence": 84, "timestamp": "1h 20m ago", "description": "AMD launches new Ryzen chips, positive reviews. Bullish sentiment on r/hardware.", "sources": ["news", "social", "technical"], "price": "$112.34", "change": 4.1, "redditMentions": 5000, "newsArticles": 25, "socialSentiment": "very_positive" },
-    { "id": "20", "asset": "CSCO", "type": "HOLD", "confidence": 69, "timestamp": "1h 25m ago", "description": "Cisco's earnings in line, but guidance cautious. Mixed analyst opinions.", "sources": ["news", "technical"], "price": "$54.32", "change": 0.3, "redditMentions": 700, "newsArticles": 9, "socialSentiment": "neutral" },
-    { "id": "21", "asset": "UBER", "type": "BUY", "confidence": 81, "timestamp": "1h 30m ago", "description": "Uber posts first quarterly profit. Social sentiment turns bullish.", "sources": ["news", "social"], "price": "$48.76", "change": 3.6, "redditMentions": 2900, "newsArticles": 16, "socialSentiment": "positive" },
-    { "id": "22", "asset": "LYFT", "type": "SELL", "confidence": 58, "timestamp": "1h 35m ago", "description": "Lyft struggles to keep pace with Uber. Bearish sentiment on social media.", "sources": ["news", "social"], "price": "$12.34", "change": -2.2, "redditMentions": 600, "newsArticles": 8, "socialSentiment": "negative" },
-    { "id": "23", "asset": "SQ", "type": "BUY", "confidence": 76, "timestamp": "1h 40m ago", "description": "Block (Square) expands into new markets. Positive news and technicals.", "sources": ["news", "technical"], "price": "$62.45", "change": 2.7, "redditMentions": 2100, "newsArticles": 14, "socialSentiment": "positive" },
-    { "id": "24", "asset": "SHOP", "type": "HOLD", "confidence": 70, "timestamp": "1h 45m ago", "description": "Shopify's growth moderates, but fundamentals remain strong. Neutral outlook.", "sources": ["news", "technical"], "price": "$78.91", "change": 0.5, "redditMentions": 900, "newsArticles": 10, "socialSentiment": "neutral" },
-    { "id": "25", "asset": "ZM", "type": "SELL", "confidence": 57, "timestamp": "1h 50m ago", "description": "Zoom's user growth slows post-pandemic. Bearish technicals and sentiment.", "sources": ["news", "technical"], "price": "$65.43", "change": -1.9, "redditMentions": 500, "newsArticles": 7, "socialSentiment": "negative" },
-    { "id": "26", "asset": "TWTR", "type": "BUY", "confidence": 75, "timestamp": "1h 55m ago", "description": "Twitter engagement up after new features. Bullish sentiment on r/socialmedia.", "sources": ["news", "social"], "price": "$44.12", "change": 2.2, "redditMentions": 1700, "newsArticles": 12, "socialSentiment": "positive" },
-    { "id": "27", "asset": "SNAP", "type": "SELL", "confidence": 63, "timestamp": "2h ago", "description": "Snap faces ad revenue headwinds. Negative news and technicals.", "sources": ["news", "technical"], "price": "$9.87", "change": -1.3, "redditMentions": 400, "newsArticles": 6, "socialSentiment": "negative" },
-    { "id": "28", "asset": "PINS", "type": "BUY", "confidence": 78, "timestamp": "2h 5m ago", "description": "Pinterest user growth rebounds. Positive sentiment on r/investing.", "sources": ["news", "social"], "price": "$28.34", "change": 2.5, "redditMentions": 1200, "newsArticles": 9, "socialSentiment": "positive" },
-    { "id": "29", "asset": "ROKU", "type": "HOLD", "confidence": 68, "timestamp": "2h 10m ago", "description": "Roku's ad business stabilizes, but competition remains fierce. Neutral outlook.", "sources": ["news", "technical"], "price": "$61.23", "change": 0.7, "redditMentions": 800, "newsArticles": 8, "socialSentiment": "neutral" },
-    { "id": "30", "asset": "DOCU", "type": "SELL", "confidence": 55, "timestamp": "2h 15m ago", "description": "DocuSign's growth slows, negative technicals. Bearish sentiment on r/techstocks.", "sources": ["news", "technical"], "price": "$52.34", "change": -2.4, "redditMentions": 300, "newsArticles": 5, "socialSentiment": "negative" }
+    {
+      "id": "aapl_20250727_001",
+      "asset": "AAPL",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "5m ago",
+      "description": "AAPL closed at $213.88, up 0.06% on the day. Price is wedged between narrow resistance at $216.5 and support at $202.94; mixed technical signals (RSI 57, MACD bullish crossover but still below 200-day SMA). Earnings due 31 Jul (consensus EPS $1.42) is the next catalyst. Legal overhang from multiple securities-fraud suits and AI-strategy pressure are capping upside, while $500 M rare-earth investment offers a modest tail-wind. Volume at 40.3 M is slightly below 3-month average, indicating wait-and-see sentiment.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$213.88",
+      "change": 0.06,
+      "redditMentions": 0,
+      "newsArticles": 7,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "ADBE-20250727-001",
+      "asset": "ADBE",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "10m ago",
+      "description": "Adobe Inc. is trading flat at $366.22 (+0.1%). Price sits below both 50-day ($393) and 200-day ($431) MAs, indicating a technical downtrend, yet RSI at 51.9 shows neutral momentum. 27 buy vs 2 sell ratings from analysts imply upside to avg target $483 (+29.8%). Recent AI-product buzz and strong FCF ($8.3 B) support sentiment, but low volume (1.2 M vs 3.9 M avg) keeps risk elevated.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$366.22",
+      "change": 0.1,
+      "redditMentions": 0,
+      "newsArticles": 3,
+      "socialSentiment": "positive"
+    },
+    {
+      "id": "amd-2025-07-27-001",
+      "asset": "AMD",
+      "type": "BUY",
+      "confidence": 78,
+      "timestamp": "39m ago",
+      "description": "AMD closed at $166.47 (+2.68%) on surging volume of 53.3 M shares—12 % above its 3-month average. The stock is riding a three-session win streak and sits just 4 % below its 52-week high of $174.05. Catalysts include: (1) a new AI-training partnership with USC ISI that could expand TAM, (2) multiple analyst upgrades this week (Erste to Buy, consensus PT raised to $150-$200), and (3) management’s reiteration that AI-chip demand may top $500 B within a few years. Technical backdrop is uniformly bullish: price is above all major SMAs (50-, 100-, 200-day), MACD triggered a fresh buy signal, and RSI at 60.8 leaves room before overbought. Social sentiment is strongly positive on Reddit and Twitter, with keywords “AI acceleration” and “data-center share gains” trending. Risk: rich 122× trailing P/E and upcoming Q2 report on Aug 5.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$166.47",
+      "change": 2.68,
+      "redditMentions": 0,
+      "newsArticles": 7,
+      "socialSentiment": "very_positive"
+    },
+    {
+      "id": "AMZN_20250727_001",
+      "asset": "AMZN",
+      "type": "HOLD",
+      "confidence": 68,
+      "timestamp": "2d ago",
+      "description": "AMZN closed Friday at $231.44 (-0.34% on the day, +23.3% over 3 months). Volume cooled to 28.7 M vs 42.9 M Thursday. Mixed signals: technical score downgraded from Strong Buy to Buy, Jeff Bezos filed large insider sells (≈$3.5 B this week), and Canada’s Competition Bureau opened a pricing-policy probe. Earnings due 31 Jul (consensus EPS $1.33 vs $1.23 YoY). RSI ~41 suggests neither oversold nor overbought; price sits just above 50-day SMA ($214.95). Wait for post-earnings guidance before adding.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$231.44",
+      "change": -0.34,
+      "redditMentions": 0,
+      "newsArticles": 4,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "baba-20250727-001",
+      "asset": "BABA",
+      "type": "HOLD",
+      "confidence": 65,
+      "timestamp": "about 2m ago",
+      "description": "BABA closed at $120.03 (-1.0% intraday) after hitting a 2.5-month low earlier in the week. The stock is under pressure from a $1.53 B bond-issue announcement and renewed tariff fears, forming a bearish A-B-C pattern with next support around $100.55. Long-term fundamentals remain solid (14× P/E, buybacks, AI/cloud focus), but technicals flash “Sell” and options flow is defensive. Expect choppy trading between $96–$126 until macro clarity improves.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$120.03",
+      "change": -1.0,
+      "redditMentions": 0,
+      "newsArticles": 5,
+      "socialSentiment": "negative"
+    },
+    {
+      "id": "crm-20250727-001",
+      "asset": "CRM",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "1h ago",
+      "description": "CRM closed at $267.70, down just ‑0.04% intraday but off 23.7% YTD. Mixed signals: strong Q1 earnings beat, 96% upside in analyst PT ($440 max), yet technicals remain neutral-to-sell and social chatter is cautious ahead of the Aug-20 earnings call. Volume at 5.9 M is above the 30-day average, suggesting active repositioning.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$267.70",
+      "change": -0.04,
+      "redditMentions": 0,
+      "newsArticles": 5,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "csco_20250727_001",
+      "asset": "CSCO",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "the time the news is from 2m ago",
+      "description": "CSCO closed at $68.64 (+0.51%) on 2.46 M shares, ~40 % below its 3-month average. No major news flow today; Street remains constructive (avg target $67.71, rating \"Buy\"), but price is already within 2 % of the 52-week high ($69.78) and momentum is flat. Hold pending fresh catalysts (earnings 12-18 Aug).",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$68.64",
+      "change": 0.51,
+      "redditMentions": 0,
+      "newsArticles": 0,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "DIS_20250727_001",
+      "asset": "DIS",
+      "type": "HOLD",
+      "confidence": 68,
+      "timestamp": "1h ago",
+      "description": "DIS closed at $120.96, down 0.8% after a volatile week. Guggenheim raised its PT to $140 on bundling upside, but retail sentiment stays neutral. Volume at 4.5 M is below the 9.7 M average; technicals show price hugging the 10-day EMA. Q3 earnings due 8 Aug keep traders sidelined.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$120.96",
+      "change": -0.81,
+      "redditMentions": 0,
+      "newsArticles": 5,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "DOCU_20250727_001",
+      "asset": "DOCU",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "the time the news is from 27m ago",
+      "description": "DOCU closed flat at $81.41 (+0.04%) on 1.7 M shares—well below its 90-day average. Technicals are neutral across moving averages and oscillators; no clear directional bias. News flow is light, and social sentiment is mixed. With earnings still ~5 weeks away and implied volatility subdued (IV30 rank 13%), the stock appears range-bound between $80–$82.",
+      "sources": [
+        "technical",
+        "news"
+      ],
+      "price": "$81.41",
+      "change": 0.04,
+      "redditMentions": 0,
+      "newsArticles": 2,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "GOOGL-20250727-001",
+      "asset": "GOOGL",
+      "type": "HOLD",
+      "confidence": 72,
+      "timestamp": "the time the news is from 2m ago",
+      "description": "GOOGL closed at $193.18, up 0.53% on 39.7 M shares—well above its 10-day average. Technical momentum remains strong (short- and long-term MAs aligned upward, MACD buy signal), but RSI ~76 signals overbought risk. Recent news flow is light; sentiment on social platforms is mildly positive as investors await 27 Oct earnings. Support sits at $178.53; resistance at $197–$200.",
+      "sources": [
+        "technical",
+        "social"
+      ],
+      "price": "$193.18",
+      "change": 0.53,
+      "redditMentions": 0,
+      "newsArticles": 3,
+      "socialSentiment": "positive"
+    },
+    {
+      "id": "INTC_20250727_001",
+      "asset": "INTC",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "5m ago",
+      "description": "INTC plunged 9.4% Friday after mixed Q2 results and a strategic pivot that scales back foundry expansion, overshadowing a top-line beat. CEO Lip-Bu Tan scrapped German/Polish plants and slowed Ohio construction, spooking investors about Intel’s manufacturing roadmap. Volume spiked to 244 M shares—triple the norm—while technicals flipped bearish with 26 of 26 indicators flashing SELL. Social sentiment is very negative, though insiders have been net buyers. Near-term pain likely; wait for support test around $20.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$20.70",
+      "change": -9.4,
+      "redditMentions": 0,
+      "newsArticles": 8,
+      "socialSentiment": "very_negative"
+    },
+    {
+      "id": "JPM_20250727_001",
+      "asset": "JPM",
+      "type": "HOLD",
+      "confidence": 72,
+      "timestamp": "2m ago",
+      "description": "JPM closed at $298.62 Friday, up 0.70% on the day and +4.1% over the past two weeks. Volume jumped 606 k shares to 5.9 M, confirming the up-move. Technicals remain constructive—price sits above both 50-day ($241) and 200-day ($234) MAs, though RSI at 63 is nearing overbought. Street sentiment is upbeat: 14 Buy vs 1 Sell rating, median target $258-$330. Next catalyst is Q3 earnings 14 Oct.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$298.62",
+      "change": 0.7,
+      "redditMentions": 0,
+      "newsArticles": 8,
+      "socialSentiment": "positive"
+    },
+    {
+      "id": "META_20250727_001",
+      "asset": "META",
+      "type": "HOLD",
+      "confidence": 68,
+      "timestamp": "1m ago",
+      "description": "META closed Friday at $712.68 (-0.30% on the day, ‑1.7% WoW). Volume fell to 8.2 M shares vs 10.9 M Thursday, indicating waning momentum. Technicals are mixed: price sits just above the 50-day SMA ($689) but below the 21-day ($717) and faces resistance at $726. Earnings due Wednesday (cons. EPS $5.80) could catalyze a ±3.5% move. News sentiment is cautiously bullish, with AI product roll-outs and ad-revenue optimism offset by regulatory headlines. Social chatter is net positive but fear-greed index at 39 (Fear) keeps retail cautious. Maintain HOLD into earnings.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$712.68",
+      "change": -1.7,
+      "redditMentions": 0,
+      "newsArticles": 11,
+      "socialSentiment": "positive"
+    },
+    {
+      "id": "MSFT_20250727_1650",
+      "asset": "MSFT",
+      "type": "HOLD",
+      "confidence": 68,
+      "timestamp": "the time the news is from 3h ago",
+      "description": "MSFT closed Friday at $498.84, up 1.6 % for the week and hovering just below its all-time high of $514.64 set on 18 Jul. Volume has been above-average (≈14 M shares) ahead of Wednesday’s FQ4 earnings (consensus EPS $3.35 vs $2.95 YoY). News flow is light—main items are a patched SharePoint hijack (no price impact) and continued AI-cap-ex momentum. Social sentiment is mildly positive, but implied volatility is compressed, suggesting a wait-and-see stance into the print.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$498.84",
+      "change": 1.58,
+      "redditMentions": 0,
+      "newsArticles": 4,
+      "socialSentiment": "positive"
+    },
+    {
+      "id": "nflx_20250727_001",
+      "asset": "NFLX",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "1m ago",
+      "description": "NFLX closed at $1,180.49, down only ‑0.02% after a choppy week. Q2 revenue beat ($11.12B, +13.7% y/y) and EPS surge (+47%) are offset by mixed analyst moves: two downgrades (Phillip to Sell, price-target-cut to $950) vs. multiple PT hikes to $1,400-$1,500 range. Technicals sit neutral—price is 1% below 10-DMA and 7% off the $1,341 high, while volume (2.6 M) is below the 4 M average. Options flow is light, and social sentiment is mildly positive on ad-tier growth but cautious on competition. Fair value models flag a 212% premium to Morningstar’s $828 FV. Risk/reward looks balanced near-term.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$1,180.49",
+      "change": -0.02,
+      "redditMentions": 0,
+      "newsArticles": 8,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "nvda_20250727_001",
+      "asset": "NVDA",
+      "type": "BUY",
+      "confidence": 78,
+      "timestamp": "2d ago",
+      "description": "NVDA closed at $173.50 (-0.14%) after hitting an intraday high of $174.72. Short-term technical signals remain positive despite the minor pullback; volume contracted to 122 M shares, which is often constructive after a run-up. 43/48 analysts rate it a Buy with an average 12-month target of $181.27. AI demand narrative intact, but insiders have been net sellers and the stock is near resistance, so risk/reward is less favorable for intraday traders.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$173.50",
+      "change": -0.14,
+      "redditMentions": 0,
+      "newsArticles": 5,
+      "socialSentiment": "positive"
+    },
+    {
+      "id": "ORCL_20250727_001",
+      "asset": "ORCL",
+      "type": "HOLD",
+      "confidence": 68,
+      "timestamp": "the time the news is from 3m ago",
+      "description": "ORCL closed at $241.90 on Jul 23 (+1.59%). Mixed technical signals: MACD sell crossover but long-term SMA support at $214.74; RSI 64.4 suggests room before overbought. Volume fell 4M shares on the gain, hinting at short-term caution. 94 analysts cover the stock with consensus 18% upside target $178–$246. Insiders net-buying last 100 trades (31.7 M bought vs 26.7 M sold).",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$241.90",
+      "change": 1.59,
+      "redditMentions": 0,
+      "newsArticles": 5,
+      "socialSentiment": "positive"
+    },
+    {
+      "id": "PINS_20250727_001",
+      "asset": "PINS",
+      "type": "BUY",
+      "confidence": 72,
+      "timestamp": "the time the news is from 20m ago",
+      "description": "PINS opened at 36.46 and is trading up 2.9 % to 37.11 on 10.8 M shares—well above the 90-day average—after a strong pre-market pop to 38.84. Technical trend is now “Uptrend” with price above key moving averages. Implied volatility remains elevated (60 % IV30, 70 % rank) ahead of the 7-Aug earnings release, but option flow is skewed bullish. No material negative news; only routine insider selling. Momentum and sentiment favor continued strength into earnings.",
+      "sources": [
+        "technical",
+        "news"
+      ],
+      "price": "$37.11",
+      "change": 2.9,
+      "redditMentions": 0,
+      "newsArticles": 3,
+      "socialSentiment": "positive"
+    },
+    {
+      "id": "PYPL_20250727_001",
+      "asset": "PYPL",
+      "type": "HOLD",
+      "confidence": 65,
+      "timestamp": "the time the news is from 2m ago",
+      "description": "PayPal closed at $77.98, up 1.51 % on 6.8 M shares ahead of Wednesday’s Q2 report. Technicals are bullish across all major MAs, but options flow is mixed and sentiment is cautious into earnings. No major news today; focus is entirely on guidance.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$77.98",
+      "change": 1.51,
+      "redditMentions": 0,
+      "newsArticles": 3,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "ROKU_20250727_001",
+      "asset": "ROKU",
+      "type": "HOLD",
+      "confidence": 68,
+      "timestamp": "5m ago",
+      "description": "ROKU closed Friday at $93.29, up 2.4% on the week but still well off its February highs. Q1 showed narrowing losses (-$27M vs ‑$51M YoY) and positive FCF, though ARPU is no longer disclosed. Valuation compressed to 2.1× sales, pricing it like a value stock. Street expects Q2 results on 7/31; Benchmark reiterated Buy ahead of print. Social sentiment is cautiously optimistic, but options flow shows elevated put activity. Hold pending earnings clarity.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$93.29",
+      "change": 2.4,
+      "redditMentions": 0,
+      "newsArticles": 4,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "SHOP_20250727_001",
+      "asset": "SHOP",
+      "type": "BUY",
+      "confidence": 78,
+      "timestamp": "the time the news is from 2m ago",
+      "description": "SHOP closed at $125.38, up 2.59% on heavy 8.5 M volume, breaking above its 200-day SMA. 54 analysts are 65% Buy/35% Hold with median PT $119. Social sentiment is very positive ahead of Aug-6 earnings, driven by strong Q2 merchant growth reports.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$125.38",
+      "change": 2.59,
+      "redditMentions": 0,
+      "newsArticles": 4,
+      "socialSentiment": "very_positive"
+    },
+    {
+      "id": "SNAP-20250727-001",
+      "asset": "SNAP",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "1h ago",
+      "description": "Snap closed at $9.11, down 2.4% intraday. Recent upgrades (Bernstein & Morgan Stanley raising PT to $10 and $8.50) and heavy options flow (≈200 k contracts Friday) hint at cautious optimism ahead of the 7/31 earnings. However, YTD ‑19% and bearish technical backdrop (price below 50- & 200-day SMA) keep risk/reward balanced.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$9.11",
+      "change": -2.4,
+      "redditMentions": 0,
+      "newsArticles": 8,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "SQ-20250727-001",
+      "asset": "SQ",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "the time the news is from 2h ago",
+      "description": "Block (SQ) closed at $86.17, down 4.47% on the session and ‑6.28% over the past month. Volume remains light and sentiment on social channels is mixed; analysts cite macro headwinds for fintech rather than company-specific issues. With no major catalysts until next earnings, the near-term risk/reward appears balanced.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$86.17",
+      "change": -4.47,
+      "redditMentions": 0,
+      "newsArticles": 4,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "TWTR_20250727_001",
+      "asset": "TWTR",
+      "type": "HOLD",
+      "confidence": 45,
+      "timestamp": "2025-07-27 09:15 ET",
+      "description": "Twitter (TWTR) is no longer actively traded after Elon Musk’s 2022 take-private deal at $54.70; shares remain structurally pegged near $53.70 with zero volume. No fresh corporate news or analyst coverage exists, and social chatter is muted. Treat as delisted/halted—no actionable trade setup.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$53.70",
+      "change": 0.0,
+      "redditMentions": 0,
+      "newsArticles": 2,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "UBER-20250727-001",
+      "asset": "UBER",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "the time the news is from 30m ago",
+      "description": "UBER closed at $90.59, down 0.6 % intraday amid mixed sentiment. 9.1 M shares traded—well below the 21.3 M average—while technicals sit neutral (RSI 38.4). Headlines focus on upcoming Aug-6 earnings and cautious analyst PT trims. Social chatter is mildly negative on regulatory risk in Europe.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$90.59",
+      "change": -0.6,
+      "redditMentions": 0,
+      "newsArticles": 4,
+      "socialSentiment": "negative"
+    },
+    {
+      "id": "V_20250727_001",
+      "asset": "V",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "2025-07-27 10:30 ET",
+      "description": "Visa（V）今日平开，股价微跌0.2%，报$304.85。期权市场显示305行权价看跌期权隐含波动率飙升至3368%，暗示短期波动预期极高，但成交量为零，情绪偏谨慎。技术图形出现“Falling Three Methods”短期看跌形态，叠加社交媒体情绪中性略偏负面，短线缺乏明确方向，建议观望。",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$304.85",
+      "change": -0.2,
+      "redditMentions": 0,
+      "newsArticles": 3,
+      "socialSentiment": "neutral"
+    },
+    {
+      "id": "ZM-20250727-001",
+      "asset": "ZM",
+      "type": "HOLD",
+      "confidence": 62,
+      "timestamp": "1h ago",
+      "description": "Zoom closed at $75.63 (-0.55% intraday). 3% revenue growth expected for FY26; 69 analysts have a median $81 target (7% upside). Social chatter mixed—AI features praised but growth concerns linger.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$75.63",
+      "change": -0.55,
+      "redditMentions": 0,
+      "newsArticles": 3,
+      "socialSentiment": "neutral"
+    }
   ],
   "watchlist": [
     {
@@ -108,7 +536,10 @@
       "source": "Reuters",
       "timestamp": "1h ago",
       "sentiment": "neutral",
-      "relevantSymbols": ["SPY", "QQQ"]
+      "relevantSymbols": [
+        "SPY",
+        "QQQ"
+      ]
     },
     {
       "id": "2",
@@ -116,7 +547,9 @@
       "source": "Bloomberg",
       "timestamp": "2h ago",
       "sentiment": "negative",
-      "relevantSymbols": ["TSLA"]
+      "relevantSymbols": [
+        "TSLA"
+      ]
     },
     {
       "id": "3",
@@ -124,7 +557,9 @@
       "source": "TechCrunch",
       "timestamp": "3h ago",
       "sentiment": "positive",
-      "relevantSymbols": ["NVDA"]
+      "relevantSymbols": [
+        "NVDA"
+      ]
     }
   ],
   "lastUpdated": "2024-01-20T15:30:00Z"

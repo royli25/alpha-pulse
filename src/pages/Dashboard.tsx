@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { StockSearch } from '@/components/StockSearch';
 import { Separator } from "@/components/ui/separator"
+import { jsonDataService, type JsonSignalData } from '@/services/jsonDataService';
 import { SignalCard } from "@/components/SignalCard"
 import { Button } from "@/components/ui/button"
 import { 
@@ -18,7 +20,6 @@ import {
 } from "lucide-react"
 import sampleData from "@/data/sampleData.json"
 import React, { useState } from "react"
-// Add live data import
 import { useNewsData } from "@/hooks/useNewsData"
 
 type Signal = {
@@ -42,8 +43,13 @@ export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
   const [refreshKey, setRefreshKey] = useState(0);
-
-  // Get live data
+  const [stockSearchResults, setStockSearchResults] = useState<any[]>([]);
+  const [jsonSignals, setJsonSignals] = useState<JsonSignalData[]>([]); // 新增：存储JSON数据
+  const [shuffledSignals, setShuffledSignals] = useState<Signal[]>([]);
+  const [allJsonSignals, setAllJsonSignals] = useState<Signal[]>([]);
+  const [displayCount, setDisplayCount] = useState(12); 
+  
+  // 获取实时数据
   const { 
     articles, 
     signals: liveSignals, 
@@ -56,6 +62,7 @@ export default function Dashboard() {
   // Keep sample data as fallback
   const { dashboardMetrics, signals: sampleSignals, marketNews } = sampleData;
   
+
   // Use live signals if available, otherwise fall back to sample data
   const displaySignals = liveSignals.length > 0 ? liveSignals : sampleSignals;
   const displayNews = articles.length > 0 ? articles : marketNews;
@@ -90,11 +97,10 @@ export default function Dashboard() {
     return arr;
   }
 
-  // Always show exactly 6 signals - pad with sample data if needed
-  let displaySignalsToShow = filteredSignals;
-  if (filteredSignals.length > 6) {
-    displaySignalsToShow = shuffleArray(filteredSignals).slice(0, 6 + refreshKey * 0); // shuffle on refreshKey change
-  } else if (filteredSignals.length < 6) {
+  // 简化的信号显示逻辑 - 修复版本
+  let displaySignalsToShow = filteredSignals.slice(0, 6);
+  if (filteredSignals.length < 6) {
+    const additionalNeeded = 6 - filteredSignals.length;
     const sampleSignalsConverted = sampleSignals.map(signal => ({
       ...signal,
       price: signal.price || '$0.00',
@@ -103,23 +109,119 @@ export default function Dashboard() {
       newsArticles: signal.newsArticles || 0,
       socialSentiment: signal.socialSentiment || 'neutral'
     })) as Signal[];
+    
     const additionalSignals = sampleSignalsConverted.filter(signal =>
       !displaySignalsToShow.some(existing => existing.id === signal.id)
     );
+    
     displaySignalsToShow = [
       ...displaySignalsToShow,
-      ...additionalSignals.slice(0, 6 - displaySignalsToShow.length)
+      ...additionalSignals.slice(0, additionalNeeded)
     ];
   }
-  displaySignalsToShow = displaySignalsToShow.slice(0, 6);
 
-  // Calculate live metrics (keeping your existing structure)
+  React.useEffect(() => {
+    // 当refreshKey变化时重新洗牌
+    shuffleAndDisplaySignals();
+  }, [refreshKey, allJsonSignals, liveSignals, searchTerm, filterType]);
+  
+  const loadRealData = async () => {
+    try {
+      // 加载真实JSON数据
+      const jsonData = await jsonDataService.loadAllJsonFiles();
+      const convertedSignals = jsonData.map(data => ({
+        id: data.data.id,
+        asset: data.data.asset,
+        type: data.data.type,
+        confidence: data.data.confidence,
+        timestamp: data.data.timestamp,
+        description: data.data.description,
+        sources: data.data.sources as Array<'news' | 'social' | 'technical'>,
+        price: data.data.price,
+        change: data.data.change,
+        newsArticles: data.data.newsArticles || 0,
+        socialSentiment: data.data.socialSentiment || 'neutral',
+        redditMentions: 0,
+        indicator: data.data.signal,
+        value: data.data.confidence
+      })) as Signal[];
+      
+      setAllJsonSignals(convertedSignals);
+    } catch (error) {
+      console.error('加载真实数据失败:', error);
+      // 回退到样本数据
+      const sampleSignalsConverted = sampleSignals.map(signal => ({
+        ...signal,
+        price: signal.price || '$0.00',
+        change: signal.change || 0,
+        redditMentions: signal.redditMentions || 0,
+        newsArticles: signal.newsArticles || 0,
+        socialSentiment: signal.socialSentiment || 'neutral'
+      })) as Signal[];
+      setAllJsonSignals(sampleSignalsConverted);
+    }
+  };
+  
+  // 将原来的6改为12或更多
+  const DISPLAY_COUNT = 12; // 改为显示12个信号
+  
+  // 修复洗牌函数 - 替换原来的混乱代码
+  const shuffleAndDisplaySignals = () => {
+    let allSignals: Signal[] = [];
+
+    // 优先使用JSON数据，如果没有则使用样本数据
+    if (allJsonSignals.length > 0) {
+      allSignals = [...allJsonSignals];
+    } else {
+      // 回退到样本数据
+      const sampleSignalsConverted = sampleSignals.map(signal => ({
+        ...signal,
+        price: signal.price || '$0.00',
+        change: signal.change || 0,
+        redditMentions: signal.redditMentions || 0,
+        newsArticles: signal.newsArticles || 0,
+        socialSentiment: signal.socialSentiment || 'neutral'
+      })) as Signal[];
+      allSignals = sampleSignalsConverted;
+    }
+
+    // 如果有实时信号，添加到列表前面
+    if (liveSignals.length > 0) {
+      const liveConverted = liveSignals.map(signal => ({
+        ...signal,
+        type: signal.type || 'buy',
+        confidence: signal.confidence || 85,
+        price: signal.price || '$0.00',
+        change: signal.change || 0,
+        redditMentions: signal.redditMentions || 0,
+        newsArticles: signal.newsArticles || 0,
+        socialSentiment: signal.socialSentiment || 'neutral'
+      })) as Signal[];
+
+      // 将实时信号放在最前面
+      allSignals = [...liveConverted, ...allSignals];
+    }
+
+    // 过滤信号
+    const filtered = allSignals.filter(signal => {
+      const matchesSearch = signal.asset.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        signal.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesFilter = filterType === 'all' || signal.type.toLowerCase() === filterType.toLowerCase();
+      return matchesSearch && matchesFilter;
+    });
+
+    // 洗牌并设置显示
+    const shuffled = shuffleArray(filtered);
+    setShuffledSignals(shuffled);
+  };
+    
+
   const liveMetrics = {
     activeSignals: {
-      value: liveSignals.length > 0 ? liveSignals.length : dashboardMetrics.activeSignals.value,
-      change: liveSignals.length > 0 ? 23 : dashboardMetrics.activeSignals.change,
-      changeType: "increase",
-      period: liveSignals.length > 0 ? "From live data" : dashboardMetrics.activeSignals.period
+      value: liveSignals.length > 0 ? liveSignals.length : (allJsonSignals.length > 0 ? allJsonSignals.length : dashboardMetrics.activeSignals.value),
+      change: liveSignals.length > 0 ? 23 : (allJsonSignals.length > 0 ? 15 : dashboardMetrics.activeSignals.change),
+      changeType: "increase" as const,
+      period: liveSignals.length > 0 ? "From live data" : (allJsonSignals.length > 0 ? "From JSON data" : dashboardMetrics.activeSignals.period)
     },
     avgConfidence: {
       value: liveSignals.length > 0 
@@ -215,116 +317,115 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Signal Cards - 2 rows of 3, with controls above */}
-        <div className="lg:col-span-3 overflow-hidden">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold">Recent Signals</h2>
-            <div className="flex items-center gap-4">
-              <input
-                type="text"
-                placeholder="Search signals..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="px-3 py-2 rounded-lg bg-muted/30 text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
-              <Button 
-                variant={filterType === 'all' ? 'default' : 'outline'} 
-                className="px-4 py-2"
-                onClick={() => setFilterType('all')}
-              >
-                All
-              </Button>
-              <Button 
-                variant={filterType === 'buy' ? 'default' : 'outline'} 
-                className="px-4 py-2"
-                onClick={() => setFilterType('buy')}
-              >
-                Buy
-              </Button>
-              <Button 
-                variant={filterType === 'sell' ? 'default' : 'outline'} 
-                className="px-4 py-2"
-                onClick={() => setFilterType('sell')}
-              >
-                Sell
-              </Button>
-              <Button 
-                variant={filterType === 'hold' ? 'default' : 'outline'} 
-                className="px-4 py-2"
-                onClick={() => setFilterType('hold')}
-              >
-                Hold
-              </Button>
-              <Button
-                variant="outline"
-                className="px-4 py-2 flex items-center gap-2"
-                onClick={() => setRefreshKey(k => k + 1)}
-                title="Refresh selection"
-              >
-                <Shuffle className="w-4 h-4" /> Refresh
-              </Button>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-            {displaySignalsToShow.map((signal) => (
-              <div key={signal.id} className="w-full h-full min-h-[280px]">
-                <SignalCard signal={signal} />
-              </div>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tighter">Dashboard</h1>
+          <p className="text-muted-foreground mt-1">
+            Welcome back, Alex. Here's your market intelligence overview.
+          </p>
+        </div>
+        <StockSearch
+          onStockFound={(stockData) => setStockSearchResults(prev => [...prev, stockData])}
+          className="ml-4"
+        />
+      </div>
+      {stockSearchResults.length > 0 && (
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold mb-3">Search Results</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {stockSearchResults.map((stock, index) => (
+              <SignalCard key={`${stock.symbol}-${index}`} signal={stock} />
             ))}
           </div>
         </div>
+      )}
 
-        {/* Recent News - Not collapsible, top 4 only */}
-        <div className="lg:col-span-1">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold">Recent News</h2>
-          </div>
-          <div className="space-y-4">
-            {displayNews.slice(0, 4).map((news) => (
-              <div key={news.id} className="p-3 rounded-xl hover:bg-muted/50 transition-colors cursor-pointer">
-                <div className="space-y-2">
-                  <h4 className="font-medium text-sm leading-tight">{news.title}</h4>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>{news.source}</span>
-                    <span>
-                      {news.publishedAt ? new Date(news.publishedAt).toLocaleTimeString() : news.timestamp}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge 
-                      variant="outline" 
-                      className={`text-xs ${
-                        news.sentiment === 'positive' 
-                          ? 'bg-green-500/20 text-green-400 border-green-500/30'
-                          : news.sentiment === 'negative'
-                          ? 'bg-red-500/20 text-red-400 border-red-500/30'
-                          : 'bg-gray-500/20 text-gray-400 border-gray-500/30'
-                      }`}
-                    >
-                      {news.sentiment}
-                    </Badge>
-                    {news.confidence && (
-                      <Badge variant="secondary" className="text-xs">
-                        {news.confidence}%
-                      </Badge>
-                    )}
-                    {(news.relevantSymbols || news.relevantSymbols)?.length > 0 && (
-                      <div className="flex gap-1">
-                        {(news.relevantSymbols || news.relevantSymbols).slice(0, 2).map((symbol) => (
-                          <Badge key={symbol} variant="secondary" className="text-xs">
-                            {symbol}
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">Active Signals</h2>
+        <div className="flex items-center space-x-2">
+          <select
+            value={filterType}
+            onChange={(e) => setFilterType(e.target.value)}
+            className="px-3 py-2 border rounded-md bg-background"
+          >
+            <option value="all">All Signals</option>
+            <option value="buy">Buy</option>
+            <option value="sell">Sell</option>
+            <option value="hold">Hold</option>
+          </select>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setRefreshKey(prev => prev + 1)}
+          >
+            <Shuffle className="w-4 h-4 mr-2" />
+            Refresh
+          </Button>
         </div>
       </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+        {shuffledSignals.slice(0, displayCount).map((signal, index) => (
+          <SignalCard
+            key={`${signal.id}-${refreshKey}-${index}`}
+            signal={signal}
+          />
+        ))}
+      </div>
+
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold">Latest News</h2>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setNewsCollapsed(!newsCollapsed)}
+          >
+            {newsCollapsed ? (
+              <>
+                <ChevronDown className="w-4 h-4 mr-2" />
+                Expand
+              </>
+            ) : (
+              <>
+                <ChevronUp className="w-4 h-4 mr-2" />
+                Collapse
+              </>
+            )}
+          </Button>
+        </div>
+        
+        {!newsCollapsed && (
+          <div className="grid gap-4">
+            {displayNews.slice(0, 5).map((article, index) => (
+              <Card key={index} className="hover:bg-accent/50 transition-colors">
+                <CardContent className="p-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-sm mb-1">{article.title}</h3>
+                      <p className="text-xs text-muted-foreground mb-2">
+                        {article.summary || article.content?.substring(0, 100) + '...'}
+                      </p>
+                      <div className="flex items-center space-x-4 text-xs text-muted-foreground">
+                        <span>{article.source}</span>
+                        <span>{new Date(article.publishedAt || article.timestamp).toLocaleDateString()}</span>
+                        {article.sentiment && (
+                          <Badge 
+                            variant={article.sentiment === 'positive' ? 'default' : 'secondary'}
+                            className={article.sentiment === 'positive' ? 'bg-green-500' : article.sentiment === 'negative' ? 'bg-red-500' : 'bg-gray-500'}
+                          >
+                            {article.sentiment}
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
-  )
+  );
 }
