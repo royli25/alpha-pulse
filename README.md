@@ -1,10 +1,9 @@
- <div align="center"> 🦁 FinSafari | 金融探险家
+ <div align="center"> Alpha-Pulse
 
 
   
 # 🎯 智能股票信号追踪系统 | AI-Powered Stock Signal Tracker
 
-### 🌟 **FinSafari** - 让AI成为您的投资向导！
 
 [🇨🇳 中文版](#-中文版) | [🇺🇸 English](#-english-version)
 
@@ -107,7 +106,7 @@ npm run lint       # 代码检查
 ```
 
 ### 🤝 贡献指南
-欢迎提交Issue和Pull Request！让我们一起打造更好的FinSafari！
+欢迎提交Issue和Pull Request！Alpha-Pulse！
 
 ### 📄 许可证
 
@@ -208,7 +207,7 @@ npm run lint       # Code linting
 ```
 
 ### 🤝 Contributing
-Issues and PRs are welcome! Let's build better FinSafari together!
+Issues and PRs are welcome! Let's build better Alpha-Pulse together!
 
 ### 📄 License
         
