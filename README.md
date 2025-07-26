@@ -1,4 +1,4 @@
- <div align="center"> # 🦁 FinSafari | 金融探险家
+ <div align="center"> 🦁 FinSafari | 金融探险家
 
 
   
