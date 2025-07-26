@@ -1,17 +1,3 @@
-
-
-
-          
-用户将项目命名为"fin-safari"，我需要更新README.md文件来反映这个新的项目名称，同时保持之前的中英文双语格式和emoji风格。
-        
-            
-toolName: view_files
-            
-status: success
-          
-            
-filePath: r:\Progrem\Save-Code\Advx-roy\alpha-pulse\README.md
-          
 # 🦁 FinSafari | 金融探险家
 
 <div align="center">
