@@ -110,7 +110,6 @@ npm run lint       # 代码检查
 欢迎提交Issue和Pull Request！让我们一起打造更好的FinSafari！
 
 ### 📄 许可证
-MIT License - 自由使用，欢迎star和fork！
 
 ---
 
@@ -212,5 +211,4 @@ npm run lint       # Code linting
 Issues and PRs are welcome! Let's build better FinSafari together!
 
 ### 📄 License
-MIT License - Free to use, star and fork welcome!
         
