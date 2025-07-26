@@ -106,7 +106,7 @@ npm run lint       # 代码检查
 ```
 
 ### 🤝 贡献指南
-欢迎提交Issue和Pull Request！让我们一起打造更好的FinSafari！
+欢迎提交Issue和Pull Request！Alpha-Pulse！
 
 ### 📄 许可证
 
@@ -207,7 +207,7 @@ npm run lint       # Code linting
 ```
 
 ### 🤝 Contributing
-Issues and PRs are welcome! Let's build better FinSafari together!
+Issues and PRs are welcome! Let's build better Alpha-Pulse together!
 
 ### 📄 License
         
