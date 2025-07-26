@@ -1,10 +1,9 @@
- <div align="center"> 🦁 FinSafari | 金融探险家
+ <div align="center"> Alpha-Pulse
 
 
   
 # 🎯 智能股票信号追踪系统 | AI-Powered Stock Signal Tracker
 
-### 🌟 **FinSafari** - Let AI be your investment guide!
 
 [🇨🇳 中文版](#-中文版) | [🇺🇸 English](#-english-version)
 
