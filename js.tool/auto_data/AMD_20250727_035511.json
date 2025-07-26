@@ -1,0 +1,28 @@
+{
+  "symbol": "AMD",
+  "timestamp": "2025-07-27T03:55:11.462946",
+  "data": {
+    "id": "amd-2025-07-27-001",
+    "asset": "AMD",
+    "type": "BUY",
+    "confidence": 78,
+    "signal": "bullish",
+    "timestamp": "39m ago",
+    "description": "AMD closed at $166.47 (+2.68%) on surging volume of 53.3 M shares—12 % above its 3-month average. The stock is riding a three-session win streak and sits just 4 % below its 52-week high of $174.05. Catalysts include: (1) a new AI-training partnership with USC ISI that could expand TAM, (2) multiple analyst upgrades this week (Erste to Buy, consensus PT raised to $150-$200), and (3) management’s reiteration that AI-chip demand may top $500 B within a few years. Technical backdrop is uniformly bullish: price is above all major SMAs (50-, 100-, 200-day), MACD triggered a fresh buy signal, and RSI at 60.8 leaves room before overbought. Social sentiment is strongly positive on Reddit and Twitter, with keywords “AI acceleration” and “data-center share gains” trending. Risk: rich 122× trailing P/E and upcoming Q2 report on Aug 5.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$166.47",
+    "change": 2.68,
+    "newsArticles": 7,
+    "socialSentiment": "very_positive",
+    "fetch_timestamp": "2025-07-27T03:54:39.279834",
+    "fetch_success": true,
+    "symbol": "AMD"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:55:11.462946"
+  }
+}

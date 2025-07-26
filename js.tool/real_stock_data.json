@@ -1,0 +1,52 @@
+{
+  "fetch_timestamp": "2025-07-27T02:49:50.080311",
+  "total_symbols": 30,
+  "successful_count": 2,
+  "failed_count": 3,
+  "failed_symbols": [
+    "NVDA",
+    "MSFT",
+    "GOOGL"
+  ],
+  "success_rate": 6.67,
+  "data": {
+    "AAPL": {
+      "id": "aapl_20250727_001",
+      "asset": "AAPL",
+      "type": "HOLD",
+      "confidence": 62,
+      "signal": "neutral",
+      "timestamp": "the time the news is from 5m ago",
+      "description": "AAPL closed at $213.88 on Jul 25, up 0.06% from the prior session. Volume of 40.2 M sits below the 10-day average, reflecting low conviction. YTD the stock is off ~16%. With no major news catalysts and price consolidating around $214, risk/reward appears balanced; maintain HOLD until clearer direction emerges.",
+      "sources": [
+        "technical",
+        "news"
+      ],
+      "price": "$213.88",
+      "change": 0.06,
+      "newsArticles": 3,
+      "socialSentiment": "neutral",
+      "fetch_timestamp": "2025-07-27T02:49:04.580143",
+      "source": "llm_with_web_search"
+    },
+    "TSLA": {
+      "id": "tsla_20250727_001",
+      "asset": "TSLA",
+      "type": "HOLD",
+      "confidence": 62,
+      "signal": "neutral",
+      "timestamp": "the time the news is from 2m ago",
+      "description": "TSLA closed Friday at $316.06, up 3.60% intraday on heavy 147.8 M volume. Price is consolidating near $315–$325 after last week’s swing high of $336.20; analysts’ median target $331.67 implies limited upside. News flow is light ahead of 22 Oct earnings, and options activity shows balanced open-interest. Social sentiment is mixed—bullish on FSD progress, cautious on macro. Maintain HOLD until a clear breakout above $325 or breakdown below $305.",
+      "sources": [
+        "news",
+        "technical"
+      ],
+      "price": "$316.06",
+      "change": 3.6,
+      "newsArticles": 7,
+      "socialSentiment": "neutral",
+      "fetch_timestamp": "2025-07-27T02:49:27.768423",
+      "source": "llm_with_web_search"
+    }
+  }
+}

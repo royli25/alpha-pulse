@@ -1,0 +1,28 @@
+{
+  "symbol": "ZM",
+  "timestamp": "2025-07-27T04:06:16.836740",
+  "data": {
+    "id": "ZM-20250727-001",
+    "asset": "ZM",
+    "type": "HOLD",
+    "confidence": 62,
+    "signal": "neutral",
+    "timestamp": "1h ago",
+    "description": "Zoom closed at $75.63 (-0.55% intraday). 3% revenue growth expected for FY26; 69 analysts have a median $81 target (7% upside). Social chatter mixed—AI features praised but growth concerns linger.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$75.63",
+    "change": -0.55,
+    "newsArticles": 3,
+    "socialSentiment": "neutral",
+    "fetch_timestamp": "2025-07-27T04:05:44.746615",
+    "fetch_success": true,
+    "symbol": "ZM"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T04:06:16.836740"
+  }
+}

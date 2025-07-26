@@ -1,0 +1,28 @@
+{
+  "symbol": "ADBE",
+  "timestamp": "2025-07-27T03:47:18.993770",
+  "data": {
+    "id": "ADBE-20250727-001",
+    "asset": "ADBE",
+    "type": "HOLD",
+    "confidence": 62,
+    "signal": "neutral",
+    "timestamp": "10m ago",
+    "description": "Adobe Inc. is trading flat at $366.22 (+0.1%). Price sits below both 50-day ($393) and 200-day ($431) MAs, indicating a technical downtrend, yet RSI at 51.9 shows neutral momentum. 27 buy vs 2 sell ratings from analysts imply upside to avg target $483 (+29.8%). Recent AI-product buzz and strong FCF ($8.3 B) support sentiment, but low volume (1.2 M vs 3.9 M avg) keeps risk elevated.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$366.22",
+    "change": 0.1,
+    "newsArticles": 3,
+    "socialSentiment": "positive",
+    "fetch_timestamp": "2025-07-27T03:46:57.571860",
+    "fetch_success": true,
+    "symbol": "ADBE"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:47:18.993770"
+  }
+}

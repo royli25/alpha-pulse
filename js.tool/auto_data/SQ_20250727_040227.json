@@ -1,0 +1,28 @@
+{
+  "symbol": "SQ",
+  "timestamp": "2025-07-27T04:02:27.602400",
+  "data": {
+    "id": "SQ-20250727-001",
+    "asset": "SQ",
+    "type": "HOLD",
+    "confidence": 62,
+    "signal": "neutral",
+    "timestamp": "the time the news is from 2h ago",
+    "description": "Block (SQ) closed at $86.17, down 4.47% on the session and ‑6.28% over the past month. Volume remains light and sentiment on social channels is mixed; analysts cite macro headwinds for fintech rather than company-specific issues. With no major catalysts until next earnings, the near-term risk/reward appears balanced.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$86.17",
+    "change": -4.47,
+    "newsArticles": 4,
+    "socialSentiment": "neutral",
+    "fetch_timestamp": "2025-07-27T04:02:09.061624",
+    "fetch_success": true,
+    "symbol": "SQ"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T04:02:27.602400"
+  }
+}

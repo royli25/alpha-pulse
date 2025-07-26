@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-07-27T04:14:13.972619",
+  "stocks": [
+    {
+      "symbol": "ROKU",
+      "price": "$93.29",
+      "change": 2.4,
+      "signal": "neutral",
+      "confidence": 68
+    },
+    {
+      "symbol": "DOCU",
+      "price": "$81.41",
+      "change": 0.04,
+      "signal": "neutral",
+      "confidence": 62
+    }
+  ]
+}

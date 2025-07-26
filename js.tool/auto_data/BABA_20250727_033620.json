@@ -1,0 +1,28 @@
+{
+  "symbol": "BABA",
+  "timestamp": "2025-07-27T03:36:20.626924",
+  "data": {
+    "id": "baba-20250727-001",
+    "asset": "BABA",
+    "type": "HOLD",
+    "confidence": 65,
+    "signal": "bearish",
+    "timestamp": "about 2m ago",
+    "description": "BABA closed at $120.03 (-1.0% intraday) after hitting a 2.5-month low earlier in the week. The stock is under pressure from a $1.53 B bond-issue announcement and renewed tariff fears, forming a bearish A-B-C pattern with next support around $100.55. Long-term fundamentals remain solid (14× P/E, buybacks, AI/cloud focus), but technicals flash “Sell” and options flow is defensive. Expect choppy trading between $96–$126 until macro clarity improves.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$120.03",
+    "change": -1.0,
+    "newsArticles": 5,
+    "socialSentiment": "negative",
+    "fetch_timestamp": "2025-07-27T03:35:47.353722",
+    "fetch_success": true,
+    "symbol": "BABA"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:36:20.626924"
+  }
+}

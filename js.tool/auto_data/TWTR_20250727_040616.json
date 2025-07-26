@@ -1,0 +1,28 @@
+{
+  "symbol": "TWTR",
+  "timestamp": "2025-07-27T04:06:16.837740",
+  "data": {
+    "id": "TWTR_20250727_001",
+    "asset": "TWTR",
+    "type": "HOLD",
+    "confidence": 45,
+    "signal": "neutral",
+    "timestamp": "2025-07-27 09:15 ET",
+    "description": "Twitter (TWTR) is no longer actively traded after Elon Musk’s 2022 take-private deal at $54.70; shares remain structurally pegged near $53.70 with zero volume. No fresh corporate news or analyst coverage exists, and social chatter is muted. Treat as delisted/halted—no actionable trade setup.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$53.70",
+    "change": 0.0,
+    "newsArticles": 2,
+    "socialSentiment": "neutral",
+    "fetch_timestamp": "2025-07-27T04:06:16.835741",
+    "fetch_success": true,
+    "symbol": "TWTR"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T04:06:16.837740"
+  }
+}

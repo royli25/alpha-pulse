@@ -1,0 +1,28 @@
+{
+  "symbol": "V",
+  "timestamp": "2025-07-27T03:39:56.573402",
+  "data": {
+    "id": "V_20250727_001",
+    "asset": "V",
+    "type": "HOLD",
+    "confidence": 62,
+    "signal": "neutral",
+    "timestamp": "2025-07-27 10:30 ET",
+    "description": "Visa（V）今日平开，股价微跌0.2%，报$304.85。期权市场显示305行权价看跌期权隐含波动率飙升至3368%，暗示短期波动预期极高，但成交量为零，情绪偏谨慎。技术图形出现“Falling Three Methods”短期看跌形态，叠加社交媒体情绪中性略偏负面，短线缺乏明确方向，建议观望。",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$304.85",
+    "change": -0.2,
+    "newsArticles": 3,
+    "socialSentiment": "neutral",
+    "fetch_timestamp": "2025-07-27T03:39:37.456396",
+    "fetch_success": true,
+    "symbol": "V"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:39:56.573402"
+  }
+}

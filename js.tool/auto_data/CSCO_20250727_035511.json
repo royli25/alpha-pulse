@@ -1,0 +1,28 @@
+{
+  "symbol": "CSCO",
+  "timestamp": "2025-07-27T03:55:11.463943",
+  "data": {
+    "id": "csco_20250727_001",
+    "asset": "CSCO",
+    "type": "HOLD",
+    "confidence": 62,
+    "signal": "neutral",
+    "timestamp": "the time the news is from 2m ago",
+    "description": "CSCO closed at $68.64 (+0.51%) on 2.46 M shares, ~40 % below its 3-month average. No major news flow today; Street remains constructive (avg target $67.71, rating \"Buy\"), but price is already within 2 % of the 52-week high ($69.78) and momentum is flat. Hold pending fresh catalysts (earnings 12-18 Aug).",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$68.64",
+    "change": 0.51,
+    "newsArticles": 0,
+    "socialSentiment": "neutral",
+    "fetch_timestamp": "2025-07-27T03:55:11.460957",
+    "fetch_success": true,
+    "symbol": "CSCO"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:55:11.463943"
+  }
+}

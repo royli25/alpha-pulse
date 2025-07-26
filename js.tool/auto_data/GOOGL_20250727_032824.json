@@ -1,0 +1,28 @@
+{
+  "symbol": "GOOGL",
+  "timestamp": "2025-07-27T03:28:24.634279",
+  "data": {
+    "id": "GOOGL-20250727-001",
+    "asset": "GOOGL",
+    "type": "HOLD",
+    "confidence": 72,
+    "signal": "bullish",
+    "timestamp": "the time the news is from 2m ago",
+    "description": "GOOGL closed at $193.18, up 0.53% on 39.7 M shares—well above its 10-day average. Technical momentum remains strong (short- and long-term MAs aligned upward, MACD buy signal), but RSI ~76 signals overbought risk. Recent news flow is light; sentiment on social platforms is mildly positive as investors await 27 Oct earnings. Support sits at $178.53; resistance at $197–$200.",
+    "sources": [
+      "technical",
+      "social"
+    ],
+    "price": "$193.18",
+    "change": 0.53,
+    "newsArticles": 3,
+    "socialSentiment": "positive",
+    "fetch_timestamp": "2025-07-27T03:27:47.290417",
+    "fetch_success": true,
+    "symbol": "GOOGL"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:28:24.634279"
+  }
+}

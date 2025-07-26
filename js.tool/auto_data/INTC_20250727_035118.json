@@ -1,0 +1,28 @@
+{
+  "symbol": "INTC",
+  "timestamp": "2025-07-27T03:51:18.154148",
+  "data": {
+    "id": "INTC_20250727_001",
+    "asset": "INTC",
+    "type": "HOLD",
+    "confidence": 62,
+    "signal": "bearish",
+    "timestamp": "5m ago",
+    "description": "INTC plunged 9.4% Friday after mixed Q2 results and a strategic pivot that scales back foundry expansion, overshadowing a top-line beat. CEO Lip-Bu Tan scrapped German/Polish plants and slowed Ohio construction, spooking investors about Intel’s manufacturing roadmap. Volume spiked to 244 M shares—triple the norm—while technicals flipped bearish with 26 of 26 indicators flashing SELL. Social sentiment is very negative, though insiders have been net buyers. Near-term pain likely; wait for support test around $20.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$20.70",
+    "change": -9.4,
+    "newsArticles": 8,
+    "socialSentiment": "very_negative",
+    "fetch_timestamp": "2025-07-27T03:51:18.151618",
+    "fetch_success": true,
+    "symbol": "INTC"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:51:18.154148"
+  }
+}

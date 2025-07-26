@@ -1,0 +1,28 @@
+{
+  "symbol": "META",
+  "timestamp": "2025-07-27T03:32:26.120899",
+  "data": {
+    "id": "META_20250727_001",
+    "asset": "META",
+    "type": "HOLD",
+    "confidence": 68,
+    "signal": "neutral",
+    "timestamp": "1m ago",
+    "description": "META closed Friday at $712.68 (-0.30% on the day, ‑1.7% WoW). Volume fell to 8.2 M shares vs 10.9 M Thursday, indicating waning momentum. Technicals are mixed: price sits just above the 50-day SMA ($689) but below the 21-day ($717) and faces resistance at $726. Earnings due Wednesday (cons. EPS $5.80) could catalyze a ±3.5% move. News sentiment is cautiously bullish, with AI product roll-outs and ad-revenue optimism offset by regulatory headlines. Social chatter is net positive but fear-greed index at 39 (Fear) keeps retail cautious. Maintain HOLD into earnings.",
+    "sources": [
+      "news",
+      "technical"
+    ],
+    "price": "$712.68",
+    "change": -1.7,
+    "newsArticles": 11,
+    "socialSentiment": "positive",
+    "fetch_timestamp": "2025-07-27T03:31:48.195034",
+    "fetch_success": true,
+    "symbol": "META"
+  },
+  "metadata": {
+    "fetch_success": true,
+    "file_created": "2025-07-27T03:32:26.120899"
+  }
+}
