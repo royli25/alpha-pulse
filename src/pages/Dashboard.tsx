@@ -5,12 +5,12 @@ import { Separator } from "@/components/ui/separator"
 import { jsonDataService, type JsonSignalData } from '@/services/jsonDataService';
 import { SignalCard } from "@/components/SignalCard"
 import { Button } from "@/components/ui/button"
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  Eye, 
-  Zap, 
-  Users, 
+import {
+  TrendingUp,
+  TrendingDown,
+  Eye,
+  Zap,
+  Users,
   BarChart3,
   ArrowRight,
   Star,
@@ -47,26 +47,26 @@ export default function Dashboard() {
   const [jsonSignals, setJsonSignals] = useState<JsonSignalData[]>([]); // 新增：存储JSON数据
   const [shuffledSignals, setShuffledSignals] = useState<Signal[]>([]);
   const [allJsonSignals, setAllJsonSignals] = useState<Signal[]>([]);
-  const [displayCount, setDisplayCount] = useState(12); 
-  
+  const [displayCount, setDisplayCount] = useState(12);
+
   // 获取实时数据
-  const { 
-    articles, 
-    signals: liveSignals, 
-    marketData, 
+  const {
+    articles,
+    signals: liveSignals,
+    marketData,
     schedulerStatus,
     lastUpdated,
-    error 
+    error
   } = useNewsData();
 
   // Keep sample data as fallback
   const { dashboardMetrics, signals: sampleSignals, marketNews } = sampleData;
-  
+
 
   // Use live signals if available, otherwise fall back to sample data
   const displaySignals = liveSignals.length > 0 ? liveSignals : sampleSignals;
   const displayNews = articles.length > 0 ? articles : marketNews;
-  
+
   // Convert live signals to match your existing Signal type
   const typedSignals = displaySignals.map(signal => ({
     ...signal,
@@ -82,7 +82,7 @@ export default function Dashboard() {
   // Filter signals based on search term and filter type
   const filteredSignals = typedSignals.filter(signal => {
     const matchesSearch = signal.asset.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         signal.description.toLowerCase().includes(searchTerm.toLowerCase());
+      signal.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = filterType === 'all' || signal.type.toLowerCase() === filterType.toLowerCase();
     return matchesSearch && matchesFilter;
   });
@@ -109,11 +109,11 @@ export default function Dashboard() {
       newsArticles: signal.newsArticles || 0,
       socialSentiment: signal.socialSentiment || 'neutral'
     })) as Signal[];
-    
+
     const additionalSignals = sampleSignalsConverted.filter(signal =>
       !displaySignalsToShow.some(existing => existing.id === signal.id)
     );
-    
+
     displaySignalsToShow = [
       ...displaySignalsToShow,
       ...additionalSignals.slice(0, additionalNeeded)
@@ -124,7 +124,7 @@ export default function Dashboard() {
     // 当refreshKey变化时重新洗牌
     shuffleAndDisplaySignals();
   }, [refreshKey, allJsonSignals, liveSignals, searchTerm, filterType]);
-  
+
   const loadRealData = async () => {
     try {
       // 加载真实JSON数据
@@ -145,7 +145,7 @@ export default function Dashboard() {
         indicator: data.data.signal,
         value: data.data.confidence
       })) as Signal[];
-      
+
       setAllJsonSignals(convertedSignals);
     } catch (error) {
       console.error('加载真实数据失败:', error);
@@ -161,10 +161,10 @@ export default function Dashboard() {
       setAllJsonSignals(sampleSignalsConverted);
     }
   };
-  
+
   // 将原来的6改为12或更多
   const DISPLAY_COUNT = 12; // 改为显示12个信号
-  
+
   // 修复洗牌函数 - 替换原来的混乱代码
   const shuffleAndDisplaySignals = () => {
     let allSignals: Signal[] = [];
@@ -214,7 +214,7 @@ export default function Dashboard() {
     const shuffled = shuffleArray(filtered);
     setShuffledSignals(shuffled);
   };
-    
+
 
   const liveMetrics = {
     activeSignals: {
@@ -224,7 +224,7 @@ export default function Dashboard() {
       period: liveSignals.length > 0 ? "From live data" : (allJsonSignals.length > 0 ? "From JSON data" : dashboardMetrics.activeSignals.period)
     },
     avgConfidence: {
-      value: liveSignals.length > 0 
+      value: liveSignals.length > 0
         ? Number((liveSignals.reduce((sum, s) => sum + s.confidence, 0) / liveSignals.length).toFixed(1))
         : dashboardMetrics.avgConfidence.value,
       unit: "%",
@@ -232,7 +232,7 @@ export default function Dashboard() {
       description: liveSignals.length > 0 ? "Live calculation" : dashboardMetrics.avgConfidence.description
     },
     marketSentiment: {
-      value: articles.length > 0 
+      value: articles.length > 0
         ? (articles.filter(a => a.sentiment === 'positive').length > articles.filter(a => a.sentiment === 'negative').length ? 'Bullish' : 'Bearish')
         : dashboardMetrics.marketSentiment.value,
       change: articles.length > 0 ? 12 : dashboardMetrics.marketSentiment.change,
@@ -363,7 +363,7 @@ export default function Dashboard() {
           </Button>
         </div>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
         {shuffledSignals.slice(0, displayCount).map((signal, index) => (
           <SignalCard
@@ -394,7 +394,7 @@ export default function Dashboard() {
             )}
           </Button>
         </div>
-        
+
         {!newsCollapsed && (
           <div className="grid gap-4">
             {displayNews.slice(0, 5).map((article, index) => (
@@ -410,7 +410,7 @@ export default function Dashboard() {
                         <span>{article.source}</span>
                         <span>{new Date(article.publishedAt || article.timestamp).toLocaleDateString()}</span>
                         {article.sentiment && (
-                          <Badge 
+                          <Badge
                             variant={article.sentiment === 'positive' ? 'default' : 'secondary'}
                             className={article.sentiment === 'positive' ? 'bg-green-500' : article.sentiment === 'negative' ? 'bg-red-500' : 'bg-gray-500'}
                           >
